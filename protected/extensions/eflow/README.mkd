@@ -1,0 +1,22 @@
+EFlowPlayer
+===========
+Yii extension for the flowplayer plugin.
+###Description 
+This is an alpha version of the extension. 
+It supports only the basic configuration.
+
+###Details
+- Version 0.2 alpha
+- Dimitrios Mengidis
+
+###Support
+- Yii 1.1.x
+- flowplayer 3.2.6
+
+###Resources
+- [Yii extension site](http://www.yiiframework.com/extension/eflowplayer/)
+- [flowplayer](http://www.flowplayer.org)
+- [Repository](http://www.github.com/dmtrs/EFlowPlayer)
+- [while(true)](http://dmtrs.devio.us/blog)
+
+__(This base code was generated with the [gii-extension-generator](http://www.yiiframework.com/extension/gii-extension-generator/))__
