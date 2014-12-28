@@ -3,20 +3,81 @@
 $this->pageTitle = Yii::app()->name;
 ?>
 
-<!--<div class="sld">
-    <div id="slides">
-        <img src="<?php /*echo Yii::app()->request->baseUrl; */?>/images/slider/peo1.jpg">
-        <img src="<?php /*echo Yii::app()->request->baseUrl; */?>/images/slider/melo1.jpg">
-        <img src="<?php /*echo Yii::app()->request->baseUrl; */?>/images/slider/212.jpg">
-        <a href="#" class="slidesjs-previous slidesjs-navigation"><i class="icon-chevron-left icon-large"></i></a>
-        <a href="#" class="slidesjs-next slidesjs-navigation"><i class="icon-chevron-right icon-large"></i></a>
-    </div>
-</div>-->
 
-<div id="last-comments">
-    <?php
-        $this->widget('MyLastComments', array(
-            'limit' => 2,
-        ));
-    ?>
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="container">
+    <h1>Hello, world!</h1>
+
+    <p>This is a template for a simple marketing or informational website. It includes a large callout called a
+        jumbotron and three supporting pieces of content. Use it as a starting point to create something more
+        unique.</p>
+
+    <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
 </div>
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Heading</h2>
+
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+                condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+                euismod. Donec sed odio dui. </p>
+
+            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Heading</h2>
+
+            <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris
+                condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+                euismod. Donec sed odio dui. </p>
+
+            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+        <div class="col-md-4">
+            <h2>Heading</h2>
+
+            <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
+                porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
+                fermentum massa justo sit amet risus.</p>
+
+            <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
+        </div>
+    </div>
+
+
+    <div id="owl-demo" class="owl-carousel owl-theme">
+        <div class="item"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/slider/peo1.jpg"></div>
+        <div class="item"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/slider/melo1.jpg"></div>
+        <div class="item"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/slider/212.jpg"></div>
+    </div>
+
+    <div id="last-comments">
+        <?php
+        $this->widget('MyLastComments', array(
+            'limit' => 5,
+        ));
+        ?>
+    </div>
+
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#owl-demo").owlCarousel({
+            navigation : true, // Show next and prev buttons
+            slideSpeed : 300,
+            paginationSpeed : 400,
+            singleItem:true
+        });
+    });
+</script>
+
+<style>
+    #owl-demo .item img{
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+</style>
