@@ -2,14 +2,14 @@
 
 class SiteController extends Controller
 {
+
     /**
-     * Declares class-based actions.
+     * Оголошуємо сторонні actions необхідні для логіки даного контроллеру
      */
     public function actions()
     {
         return array(
-            // captcha action renders the CAPTCHA image displayed on the contact page
-            'captcha' => array(
+            'captcha' => array( // captcha action renders the CAPTCHA image displayed on the contact page
                 'class' => 'CCaptchaAction',
                 'backColor' => 0xFFFFFF,
             ),
@@ -17,30 +17,32 @@ class SiteController extends Controller
     }
 
     /**
-     * This is the default 'index' action that is invoked
-     * when an action is not explicitly requested by users.
+     * Головна сторінка
      */
     public function actionIndex()
     {
-        $this->render('index');
+        return $this->render('index');
     }
 
 
     /**
-     * This is the action to handle external exceptions.
+     * Обробка та вивід виключних ситуацій(помилок)
      */
     public function actionError()
     {
         if ($error = Yii::app()->errorHandler->error) {
-            if (Yii::app()->request->isAjaxRequest)
-                echo $error['message'];
-            else
-                $this->render('error', $error);
+            if (Yii::app()->request->isAjaxRequest) {
+
+                return $error['message'];
+            } else {
+
+                return $this->render('error', $error);
+            }
         }
     }
 
     /**
-     * Displays the contact page
+     * Сторінка зворотнього звязку
      */
     public function actionContact()
     {
@@ -60,41 +62,7 @@ class SiteController extends Controller
                 $this->refresh();
             }
         }
-        $this->render('contact', array('model' => $model));
-    }
 
-    public function actionAdmin()
-    {
-        $this->render('admin');
-    }
-
-    public function proccessComments($id)
-    {
-        $criteria = new CDbCriteria();
-        $criteria->condition = 'author_id=' . $id;
-        $count = Comments::model()->count($criteria);
-        $relator = new Relator;
-        if ($count == 1) {
-            $relator->user_id = $id;
-            $relator->feed_id = 1;
-        } else if ($count == 5) {
-            $relator->user_id = $id;
-            $relator->feed_id = 2;
-        } else if ($count == 10) {
-            $relator->user_id = $id;
-            $relator->feed_id = 3;
-        }
-        $relator->save();
-    }
-
-    public function loadModel($id)
-    {
-        /* $criteria = new CDbCriteria;
-         $criteria->condition = 'ban = :ban';
-         $criteria->params = array(':ban'=>0);*/
-        $model = Profile::model()->findByAttributes(array('user_id' => $id));
-        if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
-        return $model;
+        return $this->render('contact', array('model' => $model));
     }
 }

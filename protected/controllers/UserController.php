@@ -1,8 +1,14 @@
 <?php
 
+/**
+ * Контролер відповідальний за операції повязані з користувачем та його профілем у системі
+ */
 class UserController extends Controller
 {
 
+    /**
+     * @return string|void
+     */
     public function actionRegistration()
     {
         $model = new User;
@@ -10,14 +16,14 @@ class UserController extends Controller
             $user = User::model()->findByAttributes(array('login' => $_POST['User']['login']));
             if ($user) {
                 Yii::app()->user->setFlash('login', 'Користувач з таким логіном вже існує');
-                $this->refresh();
+                return $this->refresh();
             } else {
                 $model->attributes = $_POST['User'];
                 $model->save();
-                $this->redirect('login');
+                return $this->redirect('login');
             }
         }
-        $this->render('registration', array('model' => $model));
+        return $this->render('registration', array('model' => $model));
     }
 
     public function actionUsers()
@@ -150,5 +156,10 @@ class UserController extends Controller
     {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->homeUrl);
+    }
+
+    public function actionAdmin()
+    {
+        return $this->render('admin');
     }
 }

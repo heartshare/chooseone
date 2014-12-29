@@ -13,21 +13,21 @@
             ),
         )); ?>
         <div class="row">
-            <?php echo $form->labelEx($model, 'Логін'); ?>
-            <?php echo $form->textField($model, 'username', array('class' => 'form-control', 'id' => 'username', 'placeholder' => 'Логін')); ?>
+            <?php echo $form->labelEx($model, 'username'); ?>
+            <?php echo $form->textField($model, 'username', array('class' => 'form-control', 'id' => 'username')); ?>
             <?php echo $form->error($model, 'username'); ?>
         </div>
 
         <div class="row">
-            <?php echo $form->labelEx($model, 'Пароль'); ?>
-            <?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'id' => 'password', 'placeholder' => 'Пароль')); ?>
+            <?php echo $form->labelEx($model, 'password'); ?>
+            <?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'id' => 'password')); ?>
             <?php echo $form->error($model, 'password'); ?>
         </div>
 
         <div class="input-group">
             <div class="checkbox">
                 <?php echo $form->checkBox($model, 'rememberMe'); ?>
-                <?php echo $form->label($model, 'Запамятати мене'); ?>
+                <?php echo $form->label($model, 'rememberMe'); ?>
                 <?php echo $form->error($model, 'rememberMe'); ?>
             </div>
         </div>
