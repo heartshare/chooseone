@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "{{feed}}".
+ * Модель для таблиці "{{feed}}".
  *
- * The followings are the available columns in table '{{feed}}':
+ * Атрибути нижче доступні для таблиці '{{feed}}':
  * @property integer $id
  * @property string $picture
  * @property string $description
@@ -11,7 +11,7 @@
 class Feed extends CActiveRecord
 {
     /**
-     * @return string the associated database table name
+     * @return string імя таблиці
      */
     public function tableName()
     {
@@ -19,7 +19,7 @@ class Feed extends CActiveRecord
     }
 
     /**
-     * @return array validation rules for model attributes.
+     * @return array правила валідації для атрибутів моделі
      */
     public function rules()
     {
@@ -31,7 +31,9 @@ class Feed extends CActiveRecord
     }
 
     /**
-     * behavior for MANY_TO_MANY
+     * Поведінка для збереження звязаних моделей по типу звязку MANY_TO_MANY
+     *
+     * @return array
      */
     public function behaviors()
     {
@@ -41,6 +43,8 @@ class Feed extends CActiveRecord
     }
 
     /**
+     * Оголошення звязків з іншими моделями
+     *
      * @return array relational rules.
      */
     public function relations()
@@ -51,28 +55,21 @@ class Feed extends CActiveRecord
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
+     * @return array лейбли для атрибутів
      */
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'picture' => 'Picture',
-            'description' => 'Description',
+            'id'          => 'ID',
+            'picture'     => 'Картинка',
+            'description' => 'Опис',
         );
     }
 
     /**
-     * Retrieves a list of models based on the current search/filter conditions.
+     * Пошук відповідного екземпляру(ів) за параметрами
      *
-     * Typical usecase:
-     * - Initialize the model fields with values from filter form.
-     * - Execute this method to get CActiveDataProvider instance which will filter
-     * models according to data in model fields.
-     * - Pass data provider to CGridView, CListView or any similar widget.
-     *
-     * @return CActiveDataProvider the data provider that can return the models
-     * based on the search/filter conditions.
+     * @return CActiveDataProvider моделі що відповідають на умовам
      */
     public function search()
     {
@@ -87,8 +84,8 @@ class Feed extends CActiveRecord
     }
 
     /**
-     * Returns the static model of the specified AR class.
-     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * Повертає екземпляр моделі
+     *
      * @param string $className active record class name.
      * @return Feed the static model class
      */

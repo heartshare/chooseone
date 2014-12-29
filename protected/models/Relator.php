@@ -1,17 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "{{relator}}".
+ * Модель для таблиці "{{relator}}".
  *
- * The followings are the available columns in table '{{relator}}':
+ * Атрибути нижче доступні для таблиці '{{relator}}':
  * @property integer $id
  * @property integer $user_id
  * @property integer $feed_id
  */
 class Relator extends CActiveRecord
 {
+
     /**
-     * @return string the associated database table name
+     * @return string імя таблиці
      */
     public function tableName()
     {
@@ -19,7 +20,7 @@ class Relator extends CActiveRecord
     }
 
     /**
-     * @return array validation rules for model attributes.
+     * @return array правила валідації для атрибутів моделі
      */
     public function rules()
     {
@@ -31,7 +32,9 @@ class Relator extends CActiveRecord
     }
 
     /**
-     * behavior for MANY_TO_MANY
+     * Поведінка для збереження звязаних моделей по типу звязку MANY_TO_MANY
+     *
+     * @return array
      */
     public function behaviors()
     {
@@ -41,6 +44,8 @@ class Relator extends CActiveRecord
     }
 
     /**
+     * Оголошення звязків з іншими моделями
+     *
      * @return array relational rules.
      */
     public function relations()
@@ -49,7 +54,7 @@ class Relator extends CActiveRecord
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
+     * @return array лейбли для атрибутів
      */
     public function attributeLabels()
     {
@@ -61,16 +66,9 @@ class Relator extends CActiveRecord
     }
 
     /**
-     * Retrieves a list of models based on the current search/filter conditions.
+     * Пошук відповідного екземпляру(ів) за параметрами
      *
-     * Typical usecase:
-     * - Initialize the model fields with values from filter form.
-     * - Execute this method to get CActiveDataProvider instance which will filter
-     * models according to data in model fields.
-     * - Pass data provider to CGridView, CListView or any similar widget.
-     *
-     * @return CActiveDataProvider the data provider that can return the models
-     * based on the search/filter conditions.
+     * @return CActiveDataProvider
      */
     public function search()
     {
@@ -85,8 +83,8 @@ class Relator extends CActiveRecord
     }
 
     /**
-     * Returns the static model of the specified AR class.
-     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * Повертає екземпляр моделі
+     *
      * @param string $className active record class name.
      * @return Relator the static model class
      */

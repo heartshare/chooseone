@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "{{profile}}".
+ * Модель для таблиці "{{profile}}".
  *
- * The followings are the available columns in table '{{profile}}':
+ * Атрибути нижче доступні для таблиці '{{profile}}':
  * @property integer $id
  * @property string $photo
  * @property string $info
@@ -16,7 +16,7 @@ class Profile extends CActiveRecord
     public $photo;
 
     /**
-     * @return string the associated database table name
+     * @return string імя таблиці
      */
     public function tableName()
     {
@@ -24,7 +24,7 @@ class Profile extends CActiveRecord
     }
 
     /**
-     * @return array validation rules for model attributes.
+     * @return array правила валідації для атрибутів моделі
      */
     public function rules()
     {
@@ -36,6 +36,8 @@ class Profile extends CActiveRecord
     }
 
     /**
+     * Оголошення звязків з іншими моделями
+     *
      * @return array relational rules.
      */
     public function relations()
@@ -46,27 +48,21 @@ class Profile extends CActiveRecord
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
+     * @return array лейбли для атрибутів
      */
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'photo' => 'Фото',
-            'info' => 'Інфо',
-            'birth' => 'Зареєстровано',
+            'id'      => 'ID',
+            'photo'   => 'Фото',
+            'info'    => 'Інфо',
+            'birth'   => 'Зареєстровано',
             'user_id' => 'User',
         );
     }
 
     /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     *
-     * Typical usecase:
-     * - Initialize the model fields with values from filter form.
-     * - Execute this method to get CActiveDataProvider instance which will filter
-     * models according to data in model fields.
-     * - Pass data provider to CGridView, CListView or any similar widget.
+     * Пошук відповідного екземпляру(ів) за параметрами
      *
      * @return CActiveDataProvider the data provider that can return the models
      * based on the search/filter conditions.
@@ -86,8 +82,8 @@ class Profile extends CActiveRecord
     }
 
     /**
-     * Returns the static model of the specified AR class.
-     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * Повертає екземпляр моделі
+     *
      * @param string $className active record class name.
      * @return Profile the static model class
      */

@@ -3,7 +3,7 @@
 /**
  * Модель для таблиці "{{films}}".
  *
- *  Атрибути нижче доступні для таблиці '{{films}}':
+ * Атрибути нижче доступні для таблиці '{{films}}':
  * @property integer $id
  * @property string $name
  * @property string $description
@@ -62,7 +62,7 @@ class Films extends CActiveRecord
     }
 
     /**
-     * Пошук відповідної книги за параметрами
+     * Пошук відповідного екземпляру(ів) за параметрами
      *
      * @return CActiveDataProvider моделі що відповідають на умовам
      */
@@ -81,8 +81,8 @@ class Films extends CActiveRecord
     }
 
     /**
-     * Returns the static model of the specified AR class.
-     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * Повертає екземпляр моделі
+     *
      * @param string $className active record class name.
      * @return Films the static model class
      */
@@ -91,12 +91,25 @@ class Films extends CActiveRecord
         return parent::model($className);
     }
 
+    /**
+     * Додаємо коментар
+     *
+     * @param $comment
+     * @return mixed
+     */
     public function addComment($comment)
     {
         $comment->film_id = $this->id;
+
         return $comment->save();
     }
 
+    /**
+     * Отримуємо всі коментарі для даного фільму
+     *
+     * @param $id
+     * @return CActiveRecord[]
+     */
     public function getComments($id)
     {
         $criteria = new CDbCriteria();

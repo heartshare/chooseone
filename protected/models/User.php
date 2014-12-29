@@ -1,9 +1,9 @@
 <?php
 
 /**
- * This is the model class for table "{{user}}".
+ * Модель для таблиці "{{user}}".
  *
- * The followings are the available columns in table '{{user}}':
+ * Атрибути нижче доступні для таблиці '{{user}}':
  * @property integer $id
  * @property string $login
  * @property string $password
@@ -11,13 +11,11 @@
  */
 class User extends CActiveRecord
 {
-    const ROLE_ADMIN = 'administrator';
-    const ROLE_MODER = 'moderator';
-    const ROLE_USER = 'user';
-    const ROLE_BANNED = 'banned';
+    const ROLE_ADMIN = 2;
+    const ROLE_USER = 1;
 
     /**
-     * @return string the associated database table name
+     * @return string імя таблиці
      */
     public function tableName()
     {
@@ -25,7 +23,7 @@ class User extends CActiveRecord
     }
 
     /**
-     * @return array validation rules for model attributes.
+     * @return array правила валідації для атрибутів моделі
      */
     public function rules()
     {
@@ -38,7 +36,9 @@ class User extends CActiveRecord
     }
 
     /**
-     * behavior for MANY_TO_MANY
+     * Поведінка для збереження звязаних моделей по типу звязку MANY_TO_MANY
+     *
+     * @return array
      */
     public function behaviors()
     {
@@ -48,41 +48,36 @@ class User extends CActiveRecord
     }
 
     /**
+     * Оголошення звязків з іншими моделями
+     *
      * @return array relational rules.
      */
     public function relations()
     {
         return array(
-            'profile' => array(self::HAS_ONE, 'Profile', 'user_id'),
+            'profile'  => array(self::HAS_ONE, 'Profile', 'user_id'),
             'comments' => array(self::HAS_MANY, 'Comments', 'author_id'),
-            'feed' => array(self::MANY_MANY, 'Feed', 'tbl_relator(user_id, feed_id)'),
+            'feed'     => array(self::MANY_MANY, 'Feed', 'tbl_relator(user_id, feed_id)'),
         );
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
+     * @return array лейбли для атрибутів
      */
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'login' => 'Логін',
+            'id'       => 'ID',
+            'login'    => 'Логін',
             'password' => 'Пароль',
-            'email' => 'Пошта',
+            'email'    => 'Пошта',
         );
     }
 
     /**
-     * Retrieves a list of models based on the current search/filter conditions.
+     * Пошук відповідного екземпляру(ів) за параметрами
      *
-     * Typical usecase:
-     * - Initialize the model fields with values from filter form.
-     * - Execute this method to get CActiveDataProvider instance which will filter
-     * models according to data in model fields.
-     * - Pass data provider to CGridView, CListView or any similar widget.
-     *
-     * @return CActiveDataProvider the data provider that can return the models
-     * based on the search/filter conditions.
+     * @return CActiveDataProvider
      */
     public function search()
     {
@@ -98,8 +93,8 @@ class User extends CActiveRecord
     }
 
     /**
-     * Returns the static model of the specified AR class.
-     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * Повертає екземпляр моделі
+     *
      * @param string $className active record class name.
      * @return User the static model class
      */
@@ -108,6 +103,11 @@ class User extends CActiveRecord
         return parent::model($className);
     }
 
+    /**
+     * Виконуємо дію над екзмепляром до збередення
+     *
+     * @return bool
+     */
     public function beforeSave()
     {
         if ($this->isNewRecord) {
@@ -118,20 +118,35 @@ class User extends CActiveRecord
         return parent::beforeSave();
     }
 
+    /**
+     * Виконуємо дію над екзмепляром після збередення
+     *
+     * @throws CHttpException
+     */
     public function afterSave()
     {
-        $profile = new Profile;
-        $profile->photo = 'no_avatar.png';
-        $profile->info = 'Про вас';
-        $profile->ban = 0;
-        $profile->user_id = $this->id;
-        if ($profile->validate() == false) {
-            throw new CHttpException(404, 'Fuck');
-        } else {
-            $profile->save();
+        if ($this->isNewRecord) {
+            $profile = new Profile;
+            $profile->photo = 'no_avatar.png';
+            $profile->info = 'Про вас';
+            $profile->ban = 0;
+            $profile->user_id = $this->id;
+            if ($profile->validate() == false) {
+                throw new CHttpException(404);
+            } else {
+                $profile->save();
+            }
         }
+
+        return parent::afterSave();
     }
 
+    /**
+     * Рахуємо кількість коментарів для даного автора
+     *
+     * @param $id
+     * @return string
+     */
     public function countComments($id)
     {
         $criteria = new CDbCriteria();

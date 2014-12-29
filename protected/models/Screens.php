@@ -1,17 +1,18 @@
 <?php
 
 /**
- * This is the model class for table "{{screens}}".
+ * Модель для таблиці "{{screens}}".
  *
- * The followings are the available columns in table '{{screens}}':
+ * Атрибути нижче доступні для таблиці '{{screens}}':
  * @property integer $id
  * @property string $image
  * @property integer $game_id
  */
 class Screens extends CActiveRecord
 {
+
     /**
-     * @return string the associated database table name
+     * @return string імя таблиці
      */
     public function tableName()
     {
@@ -19,18 +20,20 @@ class Screens extends CActiveRecord
     }
 
     /**
-     * @return array validation rules for model attributes.
+     * @return array правила валідації для атрибутів моделі
      */
     public function rules()
     {
         return array(
-            array('image', 'file', 'types' => 'jpg,png,gif,jpeg', 'on' => 'create,update'),
+            array('image', 'file', 'types' => 'jpg, png, jpeg', 'on' => 'create, update'),
             array('game_id', 'numerical', 'integerOnly' => true),
             array('id, image, game_id', 'safe', 'on' => 'search'),
         );
     }
 
     /**
+     * Оголошення звязків з іншими моделями
+     *
      * @return array relational rules.
      */
     public function relations()
@@ -41,28 +44,21 @@ class Screens extends CActiveRecord
     }
 
     /**
-     * @return array customized attribute labels (name=>label)
+     * @return array лейбли для атрибутів
      */
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
-            'image' => 'Image',
+            'id'      => 'ID',
+            'image'   => 'Image',
             'game_id' => 'Game',
         );
     }
 
     /**
-     * Retrieves a list of models based on the current search/filter conditions.
+     * Пошук відповідного екземпляру(ів) за параметрами
      *
-     * Typical usecase:
-     * - Initialize the model fields with values from filter form.
-     * - Execute this method to get CActiveDataProvider instance which will filter
-     * models according to data in model fields.
-     * - Pass data provider to CGridView, CListView or any similar widget.
-     *
-     * @return CActiveDataProvider the data provider that can return the models
-     * based on the search/filter conditions.
+     * @return CActiveDataProvider
      */
     public function search()
     {
@@ -77,8 +73,8 @@ class Screens extends CActiveRecord
     }
 
     /**
-     * Returns the static model of the specified AR class.
-     * Please note that you should have this exact method in all your CActiveRecord descendants!
+     * Повертає екземпляр моделі
+     *
      * @param string $className active record class name.
      * @return Screens the static model class
      */
