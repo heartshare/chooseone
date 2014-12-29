@@ -47,7 +47,7 @@
                     <div class="form-group">
                         <?php echo $form->labelEx($model, 'email'); ?>
                         <div class="controls">
-                            <?php echo $form->passwordField($model, 'email', array('class' => 'form-control')); ?>
+                            <?php echo $form->textField($model, 'email', array('class' => 'form-control')); ?>
                         </div>
                         <?php echo $form->error($model, 'email'); ?>
                     </div>

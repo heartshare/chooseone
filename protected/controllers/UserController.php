@@ -19,10 +19,20 @@ class UserController extends Controller
                 return $this->refresh();
             } else {
                 $model->attributes = $_POST['User'];
-                $model->save();
-                return $this->redirect('login');
+                if ($model->save()) {
+                    $login = new LoginForm;
+                    $login->username = $_POST['User']['login'];
+                    $login->password = $_POST['User']['password'];
+                    if ($login->validate() && $login->login()) {
+                        return $this->redirect(Yii::app()->user->returnUrl);
+                    } else {
+                        var_dump($login->getErrors());
+                        die;
+                    }
+                }
             }
         }
+
         return $this->render('registration', array('model' => $model));
     }
 
@@ -97,14 +107,18 @@ class UserController extends Controller
         $relator->save();
     }
 
+    /**
+     * @param $id
+     * @return CActiveRecord
+     * @throws CHttpException
+     */
     public function loadModel($id)
     {
-        /* $criteria = new CDbCriteria;
-         $criteria->condition = 'ban = :ban';
-         $criteria->params = array(':ban'=>0);*/
         $model = Profile::model()->findByAttributes(array('user_id' => $id));
-        if ($model === null)
+        if ($model === null) {
             throw new CHttpException(404, 'The requested page does not exist.');
+        }
+
         return $model;
     }
 

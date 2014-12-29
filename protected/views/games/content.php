@@ -17,9 +17,9 @@
 
 <?php endforeach; ?>
 <?php
-/*$this->widget('CLinkPager', array(
+$this->widget('CLinkPager', array(
     'pages' => $pages,
     'prevPageLabel' => '&laquo; назад',
     'nextPageLabel' => 'далі &raquo;',
-    'cssFile' => Yii::app()->theme->baseUrl . '/css/pager.css',
-))*/?>
+    'cssFile' => Yii::app()->baseUrl . '/css/pager.css',
+))?>

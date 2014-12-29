@@ -66,10 +66,7 @@ class GamesController extends Controller
         return $comment;
     }
 
-    /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     */
+
     public function actionCreate()
     {
         $model = new Games;
@@ -79,38 +76,38 @@ class GamesController extends Controller
             $doc = CUploadedFile::getInstance($model, 'image');
             $model->image = $doc;
             if ($model->save()) {
-                $doc->saveAs(Yii::getPathOfAlias('webroot.images.games') . DIRECTORY_SEPARATOR . $doc);
+                if (null != $doc) {
+                    $doc->saveAs(Yii::getPathOfAlias('webroot.images.games') . DIRECTORY_SEPARATOR . $doc);
+                }
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
 
-        $this->render('create', array(
+        return $this->render('create', array(
             'model' => $model,
-            'sreens' => $screens
+            'screens' => $screens
         ));
     }
 
-    /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
-     */
+
     public function actionUpdate($id)
     {
         $model = $this->loadModel($id);
-        $delscrens = Screens::model()->deleteAllByAttributes(array('game_id' => $model->id));
+        Screens::model()->deleteAllByAttributes(array('game_id' => $id));
         $screens = new Screens;
         if (isset($_POST['Games'])) {
             $model->attributes = $_POST['Games'];
             $doc = CUploadedFile::getInstance($model, 'image');
             $model->image = $doc;
             if ($model->save()) {
-                $doc->saveAs(Yii::getPathOfAlias('webroot.images.games') . DIRECTORY_SEPARATOR . $doc);
+                if (null != $doc) {
+                    $doc->saveAs(Yii::getPathOfAlias('webroot.images.games') . DIRECTORY_SEPARATOR . $doc);
+                }
                 $this->redirect(array('view', 'id' => $model->id));
             }
         }
 
-        $this->render('update', array(
+        return $this->render('update', array(
             'model' => $model,
             'screens' => $screens
         ));
