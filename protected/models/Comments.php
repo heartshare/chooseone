@@ -5,8 +5,8 @@
  *
  * Атрибути нижче доступні для таблиці '{{comments}}':
  * @property integer $id
- * @property string $author
- * @property string $content
+ * @property integer $author_id
+ * @property string  $content
  * @property integer $film_id
  * @property integer $book_id
  * @property integer $game_id
@@ -28,7 +28,7 @@ class Comments extends CActiveRecord
     {
         return array(
             array('content', 'required'),
-            array('id, author, content, film_id, book_id, game_id', 'safe', 'on' => 'search'),
+            array('id, author_id, content, film_id, book_id, game_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -52,12 +52,12 @@ class Comments extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id'      => 'ID',
-            'author'  => 'Автор',
-            'content' => 'Контент',
-            'film_id' => 'Фільм',
-            'book_id' => 'Книга',
-            'game_id' => 'Гра',
+            'id'        => 'ID',
+            'author_id' => 'Автор',
+            'content'   => 'Контент',
+            'film_id'   => 'Фільм',
+            'book_id'   => 'Книга',
+            'game_id'   => 'Гра',
         );
     }
 
@@ -71,7 +71,7 @@ class Comments extends CActiveRecord
     {
         $criteria = new CDbCriteria;
         $criteria->compare('id', $this->id);
-        $criteria->compare('author', $this->author, true);
+        $criteria->compare('author_id', $this->author, true);
         $criteria->compare('content', $this->content, true);
         $criteria->compare('film_id', $this->film_id);
         $criteria->compare('book_id', $this->book_id);
@@ -101,7 +101,6 @@ class Comments extends CActiveRecord
     public function beforeSave()
     {
         $this->date = time();
-        $this->author = Yii::app()->user->getName();
         $this->author_id = Yii::app()->user->id;
 
         return parent::beforeSave();

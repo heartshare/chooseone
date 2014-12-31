@@ -5,12 +5,12 @@ class m141226_130821_create_tbl_films extends CDbMigration
     public function up()
     {
         $this->createTable('tbl_films', array(
-            'id' => 'INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
-            'name' => 'VARCHAR(255) NOT NULL',
+            'id'          => 'INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
+            'name'        => 'VARCHAR(255) NOT NULL',
             'description' => 'VARCHAR(255) NOT NULL',
-            'genre' => 'VARCHAR(255) NOT NULL',
-            'vfile' => 'VARCHAR(255) NOT NULL',
-            'image' => 'VARCHAR(255) NOT NULL',
+            'genre'       => 'VARCHAR(255) NOT NULL',
+            'vfile'       => 'VARCHAR(255) NOT NULL',
+            'image'       => 'VARCHAR(255) NOT NULL',
         ));
     }
 
