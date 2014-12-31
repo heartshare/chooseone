@@ -79,21 +79,19 @@ class UserController extends Controller
     {
         $model = $this->loadModel($id);
         $user = new User();
-        // $profit=$user->countComments($id);
         $this->proccessComments($id);
         $this->render('view', array(
             'model' => $model,
-            //  'profit'=>$profit,
         ));
-        //}
     }
 
     public function proccessComments($id)
     {
         $criteria = new CDbCriteria();
-        $criteria->condition = 'author_id=' . $id;
-        $count = Comments::model()->count($criteria);
-        $relator = new Relator;
+        $criteria->condition = 'author_id = :id';
+        $criteria->params = array('id' => $id);
+//        $count = Comments::model()->count($criteria);
+/*        $relator = new Relator;
         if ($count == 1) {
             $relator->user_id = $id;
             $relator->feed_id = 1;
@@ -104,7 +102,7 @@ class UserController extends Controller
             $relator->user_id = $id;
             $relator->feed_id = 3;
         }
-        $relator->save();
+        $relator->save();*/
     }
 
     /**

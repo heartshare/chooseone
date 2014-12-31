@@ -53,11 +53,12 @@ class Profile extends CActiveRecord
     public function attributeLabels()
     {
         return array(
-            'id'      => 'ID',
-            'photo'   => 'Фото',
-            'info'    => 'Інфо',
-            'birth'   => 'Зареєстровано',
-            'user_id' => 'User',
+            'id'         => 'ID',
+            'photo'      => 'Фото',
+            'info'       => 'Інфо',
+            'birth'      => 'Дата народження',
+            'user_id'    => 'User',
+            'registered' => 'Зареєстровано',
         );
     }
 
