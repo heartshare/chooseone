@@ -61,5 +61,5 @@
     <?php echo CHtml::link("Фільми",array('films/admin'),array('id'=>'conrlink'));?>
     <?php echo CHtml::link("Книги",array('books/admin'),array('id'=>'conrlink'));?>
     <?php echo CHtml::link("Ігри",array('games/admin'),array('id'=>'conrlink'));?>
-    <?php echo CHtml::link("Користувачі",array('site/users'),array('id'=>'conrlink'));?>
+    <?php echo CHtml::link("Користувачі",array('user/users'),array('id'=>'conrlink'));?>
 </div>

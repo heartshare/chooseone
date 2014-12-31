@@ -16,6 +16,7 @@ class UserController extends Controller
             $user = User::model()->findByAttributes(array('login' => $_POST['User']['login']));
             if ($user) {
                 Yii::app()->user->setFlash('login', 'Користувач з таким логіном вже існує');
+
                 return $this->refresh();
             } else {
                 $model->attributes = $_POST['User'];
@@ -24,7 +25,9 @@ class UserController extends Controller
                     $login->username = $_POST['User']['login'];
                     $login->password = $_POST['User']['password'];
                     if ($login->validate() && $login->login()) {
-                        return $this->redirect(Yii::app()->user->returnUrl);
+                        Yii::app()->user->setFlash('registered', 'Дякуємо за реєстрацію на нашому сайті!');
+
+                        return $this->redirect($this->createUrl('site/index'));
                     } else {
                         var_dump($login->getErrors());
                         die;
@@ -53,10 +56,8 @@ class UserController extends Controller
         if (isset($_GET['id'])) {
             $model = Profile::model()->findByAttributes(array('id' => $_GET['id']));
             $model->ban = 1;
-
             if ($model->save()) {
                 echo "<h3>Користувач забанений!</h3>";
-
             }
         }
     }
@@ -64,13 +65,10 @@ class UserController extends Controller
     public function actionUnBan()
     {
         if (isset($_GET['id'])) {
-
             $model = Profile::model()->findByAttributes(array('id' => $_GET['id']));
             $model->ban = 0;
-
             if ($model->save()) {
                 echo "<h3>Користувач розбанений!</h3>";
-
             }
         }
     }
