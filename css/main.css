@@ -46,18 +46,14 @@
 
 #my-search {
     margin-left: 400px;
-
 }
 
 #delbutton {
-
     margin-left: 20px;
-
 }
 
 #imgs {
     float: left;
-
 }
 
 #imgo {
@@ -81,7 +77,6 @@ body {
     margin-top: 5px;
     margin-bottom: 5px;
     background: white;
-
 }
 
 #header {
@@ -134,10 +129,6 @@ div.search-form {
     padding: 10px;
     margin: 10px 0;
     background: #eee;
-}
-
-.portlet {
-
 }
 
 .portlet-decoration {
