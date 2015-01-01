@@ -3,4 +3,6 @@
 /* @var $model Comments */
 ?>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<h3>Редагувати коментар</h3>
+
+<?php $this->renderPartial('_form', array('model' => $model)); ?>
