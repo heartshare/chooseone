@@ -4,7 +4,7 @@
 ?>
 
 <?php foreach ($model as $game): ?>
-    <img src="/images/games/<?php echo $game->image; ?>" width="100" height="100" id="imgs">
+    <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/games/<?php echo $game->image; ?>" width="100" height="100" id="imgs">
     <div id="content">
         <h3 id="name"><?php echo CHtml::link($game->name, array('view', 'id' => $game->id)); ?></h3>
         <?php if (strlen($game->description) > 150) { ?>

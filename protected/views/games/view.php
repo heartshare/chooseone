@@ -1,40 +1,40 @@
-<style type="text/css">
-    #c {
-        height: 300px;
-        padding: 20px;
-
-    }
-</style>
 <?php
 /* @var $this GamesController */
 /* @var $model Games */
-?>
-<?php if (Yii::app()->user->getRole() == 2) {
+
+if (Yii::app()->user->getRole() == 2) {
     echo CHtml::link('Редагувати', array('games/update', 'id' => $model->id));
     echo CHtml::link('Видалити', array('games/delete', 'id' => $model->id));
-}?>
+}
 
-<?php if (Yii::app()->user->hasFlash('commentSubmitted')) { ?>
-    <div class='flash-success'>
-        <?php echo Yii::app()->user->getFlash('commentSubmitted'); ?>
+if (Yii::app()->user->hasFlash('commentSubmitted')) {
+    ?>
+    <div class="alert alert-success">
+        <strong>
+            <?php echo Yii::app()->user->getFlash('commentSubmitted'); ?>
+        </strong>
     </div>
 <?php } ?>
 
-<div id="c">
-    <img src="/images/games/<?php echo $model->image; ?>" width="100" height="100" id="imgo">
+    <div>
+        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/games/<?php echo $model->image; ?>" width="100"
+             height="100" id="imgo">
 
-    <h3><?php echo $model->name; ?></h3>
+        <h3><?php echo $model->name; ?></h3>
 
-    <p><?php echo $model->description; ?></p>
+        <p><?php echo $model->description; ?></p>
 
-    <?php foreach ($model->screens as $screens) {?>
-        <a href="/images/games/screens/<?php echo $screens->image; ?>" data-lightbox="screens">
-            <img src="/images/games/screens/<?php echo $screens->image; ?>" width="180" height="180">
-        </a>
-    <?php } ?>
-</div>
+        <?php foreach ($model->screens as $screens) { ?>
+            <a href="<?php echo Yii::app()->request->baseUrl; ?>/images/games/screens/<?php echo $screens->image; ?>"
+               data-lightbox="screens">
+                <img
+                    src="<?php echo Yii::app()->request->baseUrl; ?>/images/games/screens/<?php echo $screens->image; ?>"
+                    width="180" height="180">
+            </a>
+        <?php } ?>
+    </div>
 
-<br/>
+    <br/>
 
 <?php
 if (!Yii::app()->user->isGuest) {
@@ -44,7 +44,7 @@ if (!Yii::app()->user->isGuest) {
 } else {
     echo "<h2>Ви повинні бути авторизовані, щоб залишити коментар</h2>";
 }
-?>
-<?php $this->renderPartial('/films/_comments', array(
+
+$this->renderPartial('/comments/_comments', array(
     'comments' => $comments,
-)); ?>
+));

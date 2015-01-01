@@ -5,9 +5,7 @@ if (Yii::app()->user->getRole() == 2) {
     echo CHtml::link('Редагувати', array('books/update', 'id' => $model->id, array('id' => 'edit')));
     echo CHtml::link('Видалити', array('books/delete', 'id' => $model->id), array('id' => 'delbutton'));
 }
-?>
-
-<?php if (Yii::app()->user->hasFlash('commentSubmitted')) { ?>
+if (Yii::app()->user->hasFlash('commentSubmitted')) { ?>
     <div class="alert alert-success">
         <strong>
             <?php echo Yii::app()->user->getFlash('commentSubmitted'); ?>
@@ -34,7 +32,6 @@ if (!Yii::app()->user->isGuest) {
     echo "<h2>Ви повинні бути авторизовані, щоб залишити коментар</h2>";
 }
 
-$this->renderPartial('/films/_comments', array(
+$this->renderPartial('/comments/_comments', array(
     'comments' => $model->comments,
 ));
-
