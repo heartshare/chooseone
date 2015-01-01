@@ -101,6 +101,7 @@ class Books extends CActiveRecord
     public function beforeSave()
     {
         $this->date = time();
+
         return parent::beforeSave();
     }
 
