@@ -24,21 +24,23 @@ class BooksController extends Controller
     public function accessRules()
     {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
+            array('allow', // права для відвідувачів
                 'actions' => array('index', 'view', 'ajax', 'search'),
                 'users' => array('*'),
             ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
+            array('allow', // права для адміністратора
                 'actions' => array('admin', 'delete', 'create', 'update'),
                 'roles' => array(2),
             ),
-            array('deny', // deny all users
+            array('deny', // права для всіх
                 'users' => array('*'),
             ),
         );
     }
 
     /**
+     * Відображення усіх книжок
+     *
      * @return mixed
      */
     public function actionIndex()
@@ -57,10 +59,11 @@ class BooksController extends Controller
         ));
     }
 
-
     /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
+     * Відображаємо конкретну книжку по ID
+     *
+     * @param $id
+     * @return mixed|string
      */
     public function actionView($id)
     {
@@ -68,11 +71,17 @@ class BooksController extends Controller
         $comment = $this->newComment($model);
 
         return $this->render('view', array(
-            'model' => $model,
+            'model'   => $model,
             'comment' => $comment,
         ));
     }
 
+    /**
+     * Обробляємо новий коментар для книжки
+     *
+     * @param $model
+     * @return Comments
+     */
     protected function newComment($model)
     {
         $comment = new Comments;
@@ -80,6 +89,7 @@ class BooksController extends Controller
             $comment->attributes = $_POST['Comments'];
             if ($model->addComment($comment)) {
                 Yii::app()->user->setFlash('commentSubmitted', 'Дякуємо за ваш коментар. Залишайтесь з нами.');
+
                 $this->refresh();
             }
         }
@@ -88,8 +98,9 @@ class BooksController extends Controller
     }
 
     /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Створення нової книжки
+     *
+     * @return mixed|string
      */
     public function actionCreate()
     {
@@ -118,9 +129,10 @@ class BooksController extends Controller
     }
 
     /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
+     * Редагування уже існуючої книжки по ID
+     *
+     * @param $id
+     * @return mixed|string
      */
     public function actionUpdate($id)
     {
@@ -138,8 +150,7 @@ class BooksController extends Controller
                 if (null != $book) {
                     $book->saveAs(Yii::getPathOfAlias('webroot.uploads.books') . DIRECTORY_SEPARATOR . $book);
                 }
-
-                return $this->redirect(array('view', 'id' => $model->id));
+                $this->redirect(array('view', 'id' => $model->id));
             }
         }
 
@@ -149,17 +160,23 @@ class BooksController extends Controller
     }
 
     /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
-     * @param integer $id the ID of the model to be deleted
+     * Видаляємо книгу визначену за ID
+     *
+     * @param integer $id
      */
     public function actionDelete($id)
     {
-        $this->loadModel($_GET['id'])->delete();
-        if (!isset($_GET['ajax']))
+        $this->loadModel($id)->delete();
+        if (!isset($_GET['ajax'])) {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        }
     }
 
+    /**
+     * Аяксовий пошук відповідних книжок за жанром
+     *
+     * @return mixed|string
+     */
     public function actionAjax()
     {
         $criteria = new CDbCriteria;
@@ -168,60 +185,61 @@ class BooksController extends Controller
         $criteria->params = array(':genre' => $_GET['genre']);
         $model = Books::model()->findAll($criteria);
 
-        $this->renderPartial('content', array('model' => $model));
-    }
-
-    public function actionSearch()
-    {
-        if (isset($_GET['name'])) {
-            $model = Books::model()->findAllByAttributes(array('name' => $_GET['name']));
-            if ($model) {
-                $this->renderPartial('content', array('model' => $model));
-            } else {
-                echo "<h3>За вашим запитом нічого не знайдено</h3>";
-            }
-        }
+        return $this->renderPartial('content', array('model' => $model));
     }
 
     /**
-     * Manages all models.
+     * Пошук книжок за назвою
+     *
+     * @return mixed|null|string
+     */
+    public function actionSearch()
+    {
+        $response = null;
+        if (isset($_GET['name'])) {
+            $model = Books::model()->findAllByAttributes(array('name' => $_GET['name']));
+            if ($model) {
+                $response =  $this->renderPartial('content', array('model' => $model));
+            } else {
+                $response =  "За вашим запитом нічого не знайдено";
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * Сторінка керування книжками для адміністратора
+     *
+     * @return mixed|string
      */
     public function actionAdmin()
     {
         $model = new Books('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Books']))
+        $model->unsetAttributes();
+        if (isset($_GET['Books'])) {
             $model->attributes = $_GET['Books'];
+        }
 
-        $this->render('admin', array(
+        return $this->render('admin', array(
             'model' => $model,
         ));
     }
 
     /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer $id the ID of the model to be loaded
-     * @return Books the loaded model
+     * Повертає екземпляр моделі Books з вказаним ID параметром
+     *
+     * @param $id
+     * @return CActiveRecord
      * @throws CHttpException
      */
     public function loadModel($id)
     {
         $model = Books::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
-        return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * @param Books $model the model to be validated
-     */
-    protected function performAjaxValidation($model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'books-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
+        if ($model === null) {
+            throw new CHttpException(404, 'Книжки із вказаним ідентифікатором не існує');
         }
+
+        return $model;
     }
 }

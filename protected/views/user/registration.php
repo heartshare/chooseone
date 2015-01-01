@@ -1,19 +1,20 @@
+<?php
+Yii::app()->clientScript->registerScript(
+    'myHideEffect',
+    '$("#info").delay(5000).fadeOut(500)',
+    CClientScript::POS_READY
+);
+?>
 <div class="container">
     <div class="row">
         <div class="col-lg-6">
             <div id="info">
                 <?php
-                Yii::app()->clientScript->registerScript(
-                    'myHideEffect',
-                    '$("#info").fadeTo("slow",0.5).fadeOut("slow");',
-                    CClientScript::POS_READY
-                );
                 if (Yii::app()->user->hasFlash('login')) {
                     echo Yii::app()->user->getFlash('login');
                 }
                 ?>
             </div>
-
             <div class="form">
                 <?php $form = $this->beginWidget('CActiveForm', array(
                     'id' => 'registr-form',

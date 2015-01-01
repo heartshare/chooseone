@@ -22,11 +22,11 @@
     <?php
     echo CHtml::ajaxLink('Пошук', array('books/search'),
         array(
-        'type' => 'GET',
-        'data' => array('name' => 'js: $("#tf").val()'),
-        'dataType' => 'html',
-        'success' => 'js: function(data){ $("#data").html(data); }'
-    ), array('class' => 'button', 'style' => 'color:white'));
+            'type' => 'GET',
+            'data' => array('name' => 'js: $("#tf").val()'),
+            'dataType' => 'html',
+            'success' => 'js: function(data){ $("#data").html(data); }'
+        ), array('class' => 'button', 'style' => 'color:white'));
     ?>
 
 </div>

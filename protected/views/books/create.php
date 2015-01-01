@@ -3,6 +3,6 @@
 /* @var $model Books */
 ?>
 
-<h1>Create Books</h1>
+<h1>Додати книгу</h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('_form', array('model' => $model)); ?>

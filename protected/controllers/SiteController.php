@@ -18,6 +18,8 @@ class SiteController extends Controller
 
     /**
      * Головна сторінка
+     *
+     * @return string
      */
     public function actionIndex()
     {
@@ -27,22 +29,27 @@ class SiteController extends Controller
 
     /**
      * Обробка та вивід виключних ситуацій(помилок)
+     *
+     * @return string
      */
     public function actionError()
     {
+        $response = 'error-message';
         if ($error = Yii::app()->errorHandler->error) {
             if (Yii::app()->request->isAjaxRequest) {
-
-                return $error['message'];
+                $response = $error['message'];
             } else {
-
-                return $this->render('error', $error);
+                $response = $this->render('error', $error);
             }
         }
+
+        return $response;
     }
 
     /**
      * Сторінка зворотнього звязку
+     *
+     * @return string|void
      */
     public function actionContact()
     {
@@ -59,7 +66,8 @@ class SiteController extends Controller
 
                 mail(Yii::app()->params['adminEmail'], $subject, $model->body, $headers);
                 Yii::app()->user->setFlash('contact', 'Дякуємо що звязались з нами. Відповімо як тільки буде можливість.');
-                $this->refresh();
+
+                return $this->refresh();
             }
         }
 

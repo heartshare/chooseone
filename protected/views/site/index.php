@@ -3,10 +3,7 @@
 $this->pageTitle = Yii::app()->name;
 ?>
 
-<!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="container">
-    <h1>Hello, world!</h1>
-
     <?php if (Yii::app()->user->hasFlash('registered')) { ?>
         <div class="alert alert-success">
             <strong>
@@ -14,6 +11,8 @@ $this->pageTitle = Yii::app()->name;
             </strong>
         </div>
     <?php } ?>
+
+    <h1>Hello, world!</h1>
 
     <p>
         This is a template for a simple marketing or informational website. It includes a large callout called a

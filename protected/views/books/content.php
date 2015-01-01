@@ -5,10 +5,9 @@
 
 <?php foreach ($model as $book) { ?>
 
-    <img src="/images/books/<?php echo $book->image; ?>" width="100" height="100" id="imgs">
+    <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/books/<?php echo $book->image; ?>" width="100" height="100">
 
     <div id="content">
-
         <h2><?php echo CHtml::link($book->name, array('books/view', 'id' => $book->id)); ?></h2>
         <?php if (strlen($book->description) > 500) { ?>
             <p><?php echo mb_substr($book->description, 0, 200, 'utf8') . "..."; ?></p>
@@ -16,7 +15,6 @@
         <?php } else { ?>
             <p><?php echo $book->description; ?></p>
         <?php } ?>
-
     </div>
 
 <?php

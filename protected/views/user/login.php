@@ -1,5 +1,5 @@
 <?php
-/* @var $this SiteController */
+/* @var $this UserController */
 /* @var $model LoginForm */
 /* @var $form CActiveForm */
 ?>
@@ -38,5 +38,4 @@
 
         <?php $this->endWidget(); ?>
     </div>
-    <!-- form -->
 </div>

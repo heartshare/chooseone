@@ -43,10 +43,11 @@ class UserController extends Controller
     {
         $model = new User('search');
         $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['User']))
+        if (isset($_GET['User'])) {
             $model->attributes = $_GET['User'];
+        }
 
-        $this->render('users', array(
+        return $this->render('users', array(
             'model' => $model,
         ));
     }
@@ -168,6 +169,11 @@ class UserController extends Controller
         $this->redirect(Yii::app()->homeUrl);
     }
 
+    /**
+     * Відображає панель адміністрування усіма розділами
+     *
+     * @return mixed|string
+     */
     public function actionAdmin()
     {
         return $this->render('admin');

@@ -5,25 +5,24 @@ if (Yii::app()->user->getRole() == 2) {
     echo CHtml::link('Редагувати', array('books/update', 'id' => $model->id, array('id' => 'edit')));
     echo CHtml::link('Видалити', array('books/delete', 'id' => $model->id), array('id' => 'delbutton'));
 }
-if (Yii::app()->user->hasFlash('commentSubmitted')) {
-    echo "<div class='flash-success'>";
-    echo Yii::app()->user->getFlash('commentSubmitted');
-    echo "</div>";
-}
 ?>
-<style type="text/css">
-    #c {
-        height: 300px;
-        padding: 20px;
-    }
-</style>
-<div id="c">
-    <img src="/images/books/<?php echo $model->image; ?>" width="100" height="100" id="imgo">
+
+<?php if (Yii::app()->user->hasFlash('commentSubmitted')) { ?>
+    <div class="alert alert-success">
+        <strong>
+            <?php echo Yii::app()->user->getFlash('commentSubmitted'); ?>
+        </strong>
+    </div>
+<?php } ?>
+
+<div>
+    <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/books/<?php echo $model->image; ?>" width="100" height="100">
 
     <h3><?php echo $model->name; ?></h3>
 
     <p><?php echo $model->description; ?></p>
-    Завантажити:<a href="/uploads/books/<?php echo $model->book; ?>" title="download it"><?php echo $model->book; ?></a>
+    Завантажити:
+    <a href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/books/<?php echo $model->book; ?>" title="download it"><?php echo $model->book; ?></a>
 </div>
 <br>
 <?php
@@ -34,7 +33,8 @@ if (!Yii::app()->user->isGuest) {
 } else {
     echo "<h2>Ви повинні бути авторизовані, щоб залишити коментар</h2>";
 }
+
 $this->renderPartial('/films/_comments', array(
     'comments' => $model->comments,
 ));
-?>
+
