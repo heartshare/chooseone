@@ -4,38 +4,33 @@ class FilmsController extends Controller
 {
 
     /**
-     * @return array action filters
-     */
-    public function filters()
-    {
-        return array(
-            'accessControl', // perform access control for CRUD operations
-        );
-    }
-
-    /**
-     * Specifies the access control rules.
-     * This method is used by the 'accessControl' filter.
+     * Визначаємо права на дії контролера
+     *
      * @return array access control rules
      */
     public function accessRules()
     {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
+            array('allow',
                 'actions' => array('index', 'view', 'ajax', 'search'),
-                'users' => array('*'),
+                'users'   => array('*'),
             ),
-            array('allow', // allow admin user to perform 'admin' and 'delete' actions
+            array('allow',
                 'actions' => array('create', 'update', 'admin', 'delete'),
-                'users' => array(Yii::app()->user->getName()),
-                'roles' => array(2),
+                'users'   => array(Yii::app()->user->getName()),
+                'roles'   => array(2),
             ),
-            array('deny', // deny all users
+            array('deny',
                 'users' => array('*'),
             ),
         );
     }
 
+    /**
+     * Відображення усіх фільмів
+     *
+     * @return string
+     */
     public function actionIndex()
     {
         $criteria = new CDbCriteria();
@@ -53,39 +48,28 @@ class FilmsController extends Controller
     }
 
     /**
-     * Displays a particular model.
-     * @param integer $id the ID of the model to be displayed
+     * Відображаємо конкретний фільм по ID
+     *
+     * @param $id
+     * @return string
      */
     public function actionView($id)
     {
-        $model = $this->loadModel($id);
+        $model = $this->loadModel($id, Films::model());
         $comment = $this->newComment($model);
 
-        $this->render('view', array(
-            'model' => $model,
-            'comment' => $comment,
+        return $this->render('view', array(
+            'model'    => $model,
+            'comment'  => $comment,
             'comments' => $model->getComments($id),
 
         ));
     }
 
-    protected function newComment($model)
-    {
-        $comment = new Comments;
-        if (isset($_POST['Comments'])) {
-            $comment->attributes = $_POST['Comments'];
-            if ($model->addComment($comment)) {
-                Yii::app()->user->setFlash('commentSubmitted', 'Дякуємо за ваш коментар.
-                   Залишайтесь з нами.');
-                $this->refresh();
-            }
-        }
-        return $comment;
-    }
-
     /**
-     * Creates a new model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
+     * Створення нового фільму
+     *
+     * @return string
      */
     public function actionCreate()
     {
@@ -105,115 +89,110 @@ class FilmsController extends Controller
                 }
                 $this->redirect(array('view', 'id' => $model->id));
             }
-
         }
 
-        $this->render('create', array(
+        return $this->render('create', array(
             'model' => $model,
         ));
     }
 
     /**
-     * Updates a particular model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id the ID of the model to be updated
+     * Редагування уже існуючого фільму по ID
+     *
+     * @param $id
+     * @return string
      */
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
+        $model = $this->loadModel($id, Films::model());
         if (isset($_POST['Films'])) {
             $model->attributes = $_POST['Films'];
             $document = CUploadedFile::getInstance($model, 'image');
             $video = CUploadedFile::getInstance($model, 'vfile');
             $model->image = $document;
             $model->vfile = $video;
-            if ($model->save())
-                $document->saveAs(Yii::getPathOfAlias('webroot.images.films') . DIRECTORY_SEPARATOR . $document);
-            $video->saveAs(Yii::getPathOfAlias('webroot.uploads.videos') . DIRECTORY_SEPARATOR . $video);
-            $this->redirect(array('view', 'id' => $model->id));
+            if ($model->save()) {
+                if (null != $document) {
+                    $document->saveAs(Yii::getPathOfAlias('webroot.images.films') . DIRECTORY_SEPARATOR . $document);
+                }
+                if (null != $video) {
+                    $video->saveAs(Yii::getPathOfAlias('webroot.uploads.videos') . DIRECTORY_SEPARATOR . $video);
+                }
+                $this->redirect(array('view', 'id' => $model->id));
+            }
         }
 
-        $this->render('update', array(
+        return $this->render('update', array(
             'model' => $model,
         ));
     }
 
     /**
-     * Deletes a particular model.
-     * If deletion is successful, the browser will be redirected to the 'admin' page.
-     * @param integer $id the ID of the model to be deleted
+     * Видаляємо фільм по ID
+     *
+     * @param integer $id
      */
     public function actionDelete($id)
     {
-        $this->loadModel($id)->delete();
-        if (!isset($_GET['ajax']))
+        $this->loadModel($id, Films::model())->delete();
+        if (!isset($_GET['ajax'])) {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+        }
     }
 
-
+    /**
+     * Аяксовий пошук відповідних фільмів за жанром
+     *
+     * @return string
+     */
     public function actionAjax()
     {
         $criteria = new CDbCriteria();
         $criteria->order = 'id DESC';
-        $criteria->condition = 'genre= :genre';
-        $criteria->params = array(":genre" => $_GET['genre']);
+        $criteria->condition = 'genre = :genre';
+        $criteria->params = array(':genre' => $_GET['genre']);
         $model = Films::model()->findAllByAttributes(array('genre' => $_GET['genre']), $criteria);
-        $this->renderPartial('content', array(
+
+        return $this->renderPartial('content', array(
             'model' => $model,
         ));
     }
 
     /**
-     * Manages all models.
+     * Пошук фільмів за назвою
+     *
+     * @return mixed|null|string
+     */
+    public function actionSearch()
+    {
+        $response = null;
+        if (isset($_GET['name'])) {
+            $model = Films::model()->findAllByAttributes(array('name' => $_GET['name']));
+            if ($model) {
+                $response = $this->renderPartial('content', array('model' => $model));
+            } else {
+                $response = 'За вашим запитом нічого не знайдено';
+            }
+        }
+
+        return $response;
+    }
+
+    /**
+     * Сторінка керування фільмами для адміністратора
+     *
+     * @return mixed|string
      */
     public function actionAdmin()
     {
         $model = new Films('search');
-        $model->unsetAttributes(); // clear any default values
-        if (isset($_GET['Films']))
+        $model->unsetAttributes();
+        if (isset($_GET['Films'])) {
             $model->attributes = $_GET['Films'];
+        }
 
-        $this->render('admin', array(
+        return $this->render('admin', array(
             'model' => $model,
         ));
-    }
-
-    public function actionSearch()
-    {
-        if (isset($_GET['name'])) {
-            $model = Films::model()->findAllByAttributes(array('name' => $_GET['name']));
-            if ($model) {
-                $this->renderPartial('content', array('model' => $model));
-            } else {
-                echo "<h3>За вашим запитом нічого не знайдено</h3>";
-            }
-        }
-    }
-
-    /**
-     * Returns the data model based on the primary key given in the GET variable.
-     * If the data model is not found, an HTTP exception will be raised.
-     * @param integer $id the ID of the model to be loaded
-     * @return Films the loaded model
-     * @throws CHttpException
-     */
-    public function loadModel($id)
-    {
-        $model = Films::model()->findByPk($id);
-        if ($model === null)
-            throw new CHttpException(404, 'The requested page does not exist.');
-        return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * @param Films $model the model to be validated
-     */
-    protected function performAjaxValidation($model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'films-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
     }
 }

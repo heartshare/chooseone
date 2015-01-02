@@ -7,18 +7,8 @@ class BooksController extends Controller
 {
 
     /**
-     * @return array action filters
-     */
-    public function filters()
-    {
-        return array(
-            'accessControl', // perform access control for CRUD operations
-        );
-    }
-
-    /**
-     * Specifies the access control rules.
-     * This method is used by the 'accessControl' filter.
+     * Визначаємо права на дії контролера
+     *
      * @return array access control rules
      */
     public function accessRules()
@@ -26,11 +16,11 @@ class BooksController extends Controller
         return array(
             array('allow', // права для відвідувачів
                 'actions' => array('index', 'view', 'ajax', 'search'),
-                'users' => array('*'),
+                'users'   => array('*'),
             ),
             array('allow', // права для адміністратора
                 'actions' => array('admin', 'delete', 'create', 'update'),
-                'roles' => array(2),
+                'roles'   => array(2),
             ),
             array('deny', // права для всіх
                 'users' => array('*'),
@@ -67,34 +57,13 @@ class BooksController extends Controller
      */
     public function actionView($id)
     {
-        $model = $this->loadModel($id);
+        $model = $this->loadModel($id, Books::model());
         $comment = $this->newComment($model);
 
         return $this->render('view', array(
             'model'   => $model,
             'comment' => $comment,
         ));
-    }
-
-    /**
-     * Обробляємо новий коментар для книжки
-     *
-     * @param $model
-     * @return Comments
-     */
-    protected function newComment($model)
-    {
-        $comment = new Comments;
-        if (isset($_POST['Comments'])) {
-            $comment->attributes = $_POST['Comments'];
-            if ($model->addComment($comment)) {
-                Yii::app()->user->setFlash('commentSubmitted', 'Дякуємо за ваш коментар. Залишайтесь з нами.');
-
-                $this->refresh();
-            }
-        }
-
-        return $comment;
     }
 
     /**
@@ -136,7 +105,7 @@ class BooksController extends Controller
      */
     public function actionUpdate($id)
     {
-        $model = $this->loadModel($id);
+        $model = $this->loadModel($id, Books::model());
         if (isset($_POST['Books'])) {
             $model->attributes = $_POST['Books'];
             $image = CUploadedFile::getInstance($model, 'image');
@@ -166,7 +135,7 @@ class BooksController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->loadModel($id)->delete();
+        $this->loadModel($id, Books::model())->delete();
         if (!isset($_GET['ajax'])) {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
@@ -224,22 +193,5 @@ class BooksController extends Controller
         return $this->render('admin', array(
             'model' => $model,
         ));
-    }
-
-    /**
-     * Повертає екземпляр моделі Books з вказаним ID параметром
-     *
-     * @param $id
-     * @return CActiveRecord
-     * @throws CHttpException
-     */
-    public function loadModel($id)
-    {
-        $model = Books::model()->findByPk($id);
-        if ($model === null) {
-            throw new CHttpException(404, 'Книжки із вказаним ідентифікатором не існує');
-        }
-
-        return $model;
     }
 }

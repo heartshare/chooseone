@@ -73,7 +73,7 @@
                                     <li><?php echo CHtml::link('Профіль', array('user/view', 'id' => Yii::app()->user->getId())); ?></li>
                                     <li><?php echo CHtml::link('Вийти', array('user/logout')); ?></li>
                                     <li class="divider"></li>
-                                    <li><?php if (Yii::app()->user->getRole() == 2) echo CHtml::link('Керування', array('user/admin')); ?></li>
+                                    <li><?php if (Yii::app()->user->getRole() == 2) echo CHtml::link('Керування', array('user/dashboard')); ?></li>
                                 </ul>
                             </li>
                         </ul>
