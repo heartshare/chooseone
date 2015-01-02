@@ -6,14 +6,22 @@ $this->pageTitle = Yii::app()->name . ' - Contact Us';
 ?>
 
 <h1>Звязатись з адміністрацією</h1>
+<p>Якщо у вас є побажання, пропозиції чи запитання можете звязатись з адміністрацією.Дякуємо.</p>
 
-<?php if (Yii::app()->user->hasFlash('contact')): ?>
-    <div class="flash-success">
+<?php if (Yii::app()->user->hasFlash('contact')) { ?>
+    <div class="alert alert-success">
+        <strong>
+        <span class="glyphicon glyphicon-send"></span>
         <?php echo Yii::app()->user->getFlash('contact'); ?>
+        </strong>
     </div>
-<?php else: ?>
+<?php } ?>
 
-    <p>Якщо у вас є побажання, пропозиції чи запитання можете звязатись з адміністрацією.Дякуємо.</p>
+<div class="col-lg-6">
+
+    <div class="well well-sm">
+        <small><i class="glyphicon glyphicon-asterisk form-control-feedback"></i> Обовязкові поля</small>
+    </div>
 
     <div class="form">
         <?php $form = $this->beginWidget('CActiveForm', array(
@@ -25,48 +33,68 @@ $this->pageTitle = Yii::app()->name . ' - Contact Us';
         )); ?>
         <?php echo $form->errorSummary($model); ?>
 
-        <div class="row">
+        <div class="form-group">
             <?php echo $form->labelEx($model, 'Імя*'); ?>
-            <?php echo $form->textField($model, 'name'); ?>
+            <div class="input-group">
+                <?php echo $form->textField($model, 'name', array('class' => 'form-control')); ?>
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-asterisk form-control-feedback"></i>
+                </span>
+            </div>
             <?php echo $form->error($model, 'name'); ?>
         </div>
 
-        <div class="row">
+        <div class="form-group">
             <?php echo $form->labelEx($model, 'Email*'); ?>
-            <?php echo $form->textField($model, 'email'); ?>
+            <div class="input-group">
+                <?php echo $form->textField($model, 'email', array('class' => 'form-control')); ?>
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-asterisk form-control-feedback"></i>
+                </span>
+            </div>
             <?php echo $form->error($model, 'email'); ?>
         </div>
 
-        <div class="row">
+        <div class="form-group">
             <?php echo $form->labelEx($model, 'Тема*'); ?>
-            <?php echo $form->textField($model, 'subject', array('size' => 60, 'maxlength' => 128)); ?>
+            <div class="input-group">
+                <?php echo $form->textField($model, 'subject', array('class' => 'form-control', 'size' => 60, 'maxlength' => 128)); ?>
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-asterisk form-control-feedback"></i>
+                </span>
+            </div>
             <?php echo $form->error($model, 'subject'); ?>
         </div>
 
-        <div class="row">
+        <div class="form-group">
             <?php echo $form->labelEx($model, 'Лист*'); ?>
-            <?php echo $form->textArea($model, 'body', array('rows' => 6, 'cols' => 50)); ?>
+            <div class="input-group">
+                <?php echo $form->textArea($model, 'body', array('class' => 'form-control', 'rows' => 6, 'cols' => 50)); ?>
+                <span class="input-group-addon">
+                    <i class="glyphicon glyphicon-asterisk form-control-feedback"></i>
+                </span>
+            </div>
             <?php echo $form->error($model, 'body'); ?>
         </div>
 
         <?php if (CCaptcha::checkRequirements()): ?>
-            <div class="row">
+            <div class="form-group">
                 <?php echo $form->labelEx($model, 'Код*'); ?>
-                <div>
+                <div class="input-group">
                     <?php $this->widget('CCaptcha'); ?>
                     <?php echo $form->textField($model, 'verifyCode'); ?>
                 </div>
-                <div class="hint">Введіть літери для перевірки.Поля з * обовязкові.</div>
+                <div class="hint">Введіть літери для перевірки.</div>
                 <?php echo $form->error($model, 'verifyCode'); ?>
             </div>
         <?php endif; ?>
 
         <div class="row buttons">
-            <?php echo CHtml::submitButton('Відправити'); ?>
+            <?php echo CHtml::submitButton('Відправити', array('class' => 'btn btn-info pull-right')); ?>
         </div>
 
         <?php $this->endWidget(); ?>
 
     </div><!-- form -->
 
-<?php endif; ?>
+</div>
