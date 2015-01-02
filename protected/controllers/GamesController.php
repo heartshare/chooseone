@@ -4,36 +4,56 @@ class GamesController extends Controller
 {
 
     /**
-     * @return array action filters
+     * Фільтри для дій
+     *
+     * @return array
      */
     public function filters()
     {
         return array(
-            'accessControl', // perform access control for CRUD operations
+            'accessControl',
         );
     }
 
     /**
-     * Specifies the access control rules.
-     * This method is used by the 'accessControl' filter.
+     * Права доступу до дій контролера
+     *
      * @return array access control rules
      */
     public function accessRules()
     {
         return array(
-            array('allow', // allow all users to perform 'index' and 'view' actions
+            array('allow',
                 'actions' => array('index', 'view', 'ajax', 'search'),
                 'users' => array('*'),
             ),
-            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+            array('allow',
                 'actions' => array('create', 'update', 'admin', 'delete'),
                 'users' => array(Yii::app()->user->name),
                 'roles' => array(2),
             ),
-            array('deny', // deny all users
+            array('deny',
                 'users' => array('*'),
             ),
         );
+    }
+
+    /**
+     * Відображення усіх ігор
+     *
+     * @return string
+     */
+    public function actionIndex()
+    {
+        $criteria = new CDbCriteria();
+        $criteria->order = 'id DESC';
+        $count = Games::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = 5;
+        $pages->applyLimit($criteria);
+        $model = Games::model()->findAll($criteria);
+
+        return $this->render('index', array('model' => $model, 'pages' => $pages));
     }
 
     /**
@@ -57,8 +77,7 @@ class GamesController extends Controller
         if (isset($_POST['Comments'])) {
             $comment->attributes = $_POST['Comments'];
             if ($model->addComment($comment)) {
-                Yii::app()->user->setFlash('commentSubmitted', 'Дякуємо за ваш коментар.
-            Залишайтесь з нами.');
+                Yii::app()->user->setFlash('commentSubmitted', 'Дякуємо за ваш коментар. Залишайтесь з нами.');
                 $this->refresh();
             }
         }
@@ -73,11 +92,11 @@ class GamesController extends Controller
         $screens = new Screens;
         if (isset($_POST['Games'])) {
             $model->attributes = $_POST['Games'];
-            $doc = CUploadedFile::getInstance($model, 'image');
-            $model->image = $doc;
+            $poster = CUploadedFile::getInstance($model, 'image');
+            $model->image = $poster;
             if ($model->save()) {
-                if (null != $doc) {
-                    $doc->saveAs(Yii::getPathOfAlias('webroot.images.games') . DIRECTORY_SEPARATOR . $doc);
+                if (null != $poster) {
+                    $poster->saveAs(Yii::getPathOfAlias('webroot.images.games') . DIRECTORY_SEPARATOR . $poster);
                 }
                 $this->redirect(array('view', 'id' => $model->id));
             }
@@ -97,11 +116,11 @@ class GamesController extends Controller
         $screens = new Screens;
         if (isset($_POST['Games'])) {
             $model->attributes = $_POST['Games'];
-            $doc = CUploadedFile::getInstance($model, 'image');
-            $model->image = $doc;
+            $poster = CUploadedFile::getInstance($model, 'image');
+            $model->image = $poster;
             if ($model->save()) {
-                if (null != $doc) {
-                    $doc->saveAs(Yii::getPathOfAlias('webroot.images.games') . DIRECTORY_SEPARATOR . $doc);
+                if (null != $poster) {
+                    $poster->saveAs(Yii::getPathOfAlias('webroot.images.games') . DIRECTORY_SEPARATOR . $poster);
                 }
                 $this->redirect(array('view', 'id' => $model->id));
             }
@@ -121,26 +140,9 @@ class GamesController extends Controller
     public function actionDelete($id)
     {
         $this->loadModel($id)->delete();
-
-        // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-        if (!isset($_GET['ajax']))
+        if (!isset($_GET['ajax'])) {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-    }
-
-    /**
-     * Lists all models.
-     */
-    public function actionIndex()
-    {
-        $criteria = new CDbCriteria();
-        $criteria->order = 'id DESC';
-        $count = Games::model()->count($criteria);
-        $pages = new CPagination($count);
-        $pages->pageSize = 5;
-        $pages->applyLimit($criteria);
-        $model = Games::model()->findAll($criteria);
-
-        $this->render('index', array('model' => $model, 'pages' => $pages));
+        }
     }
 
     public function actionAjax()
@@ -191,20 +193,10 @@ class GamesController extends Controller
     public function loadModel($id)
     {
         $model = Games::model()->findByPk($id);
-        if ($model === null)
+        if ($model === null) {
             throw new CHttpException(404, 'The requested page does not exist.');
-        return $model;
-    }
-
-    /**
-     * Performs the AJAX validation.
-     * @param Games $model the model to be validated
-     */
-    protected function performAjaxValidation($model)
-    {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'games-form') {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
         }
+
+        return $model;
     }
 }

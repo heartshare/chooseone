@@ -5,9 +5,8 @@
     'columns'=>array(
         'id',
         'login',
-
         array(
             'class'=>'CButtonColumn',
         ),
     ),
-)); ?>
+));

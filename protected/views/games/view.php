@@ -3,8 +3,8 @@
 /* @var $model Games */
 
 if (Yii::app()->user->getRole() == 2) {
-    echo CHtml::link('Редагувати', array('games/update', 'id' => $model->id));
-    echo CHtml::link('Видалити', array('games/delete', 'id' => $model->id));
+    echo CHtml::link('Редагувати', array('games/update', 'id' => $model->id), array('class' => 'btn btn-success'));
+    echo CHtml::link('Видалити', array('games/delete', 'id' => $model->id), array('class' => 'btn btn-success'));
 }
 
 if (Yii::app()->user->hasFlash('commentSubmitted')) {
@@ -23,6 +23,8 @@ if (Yii::app()->user->hasFlash('commentSubmitted')) {
         <h3><?php echo $model->name; ?></h3>
 
         <p><?php echo $model->description; ?></p>
+
+        <p><?php echo $model->genre; ?></p>
 
         <?php foreach ($model->screens as $screens) { ?>
             <a href="<?php echo Yii::app()->request->baseUrl; ?>/images/games/screens/<?php echo $screens->image; ?>"

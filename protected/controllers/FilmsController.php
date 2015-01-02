@@ -45,10 +45,10 @@ class FilmsController extends Controller
         $pages->pageSize = 5;
         $pages->applyLimit($criteria);
         $model = Films::model()->findAll($criteria);
-        $this->render('index', array(
+
+        return $this->render('index', array(
             'model' => $model,
             'pages' => $pages,
-            'count' => $count
         ));
     }
 

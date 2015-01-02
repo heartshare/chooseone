@@ -5,7 +5,7 @@
 
 <?php foreach ($model as $film) { ?>
 
-    <img src="/images/films/<?php echo $film->image ?>" width="100" height="100" id="imgs">
+    <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/films/<?php echo $film->image ?>" width="100" height="100">
 
     <div id="content">
 
@@ -13,7 +13,7 @@
             <?php echo CHtml::link($film->name, array('view', 'id' => $film->id)); ?>
         </h3>
 
-        <p id="descript">
+        <p>
             <?php
                 if (strlen($film->description) > 200) {
                     echo mb_substr($film->description, 0, 200, 'utf8') . "...";

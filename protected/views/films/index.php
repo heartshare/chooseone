@@ -18,20 +18,21 @@
         ));
     ?>
     <span id="my-search">
-<?php echo "Пошук по розділу" ?>
-<?php echo CHtml::textField('Введіть текст', '', array('id' => 'tf')); ?>
-<?php
-echo CHtml::ajaxLink('Пошук', array('films/search'), array(
-    'type' => 'GET',
-    'data' => array('name' => 'js: $("#tf").val()'),
-    'dataType' => 'html',
-    'success' => 'js: function(data){
-      $("#data").html(data);
-    }'
+        <?php
+        echo CHtml::textField('Пошук по розділу', '', array('id' => 'tf'));
+        echo CHtml::ajaxLink('Пошук', array('films/search'), array(
+            'type'     => 'GET',
+            'data'     => array('name' => 'js: $("#tf").val()'),
+            'dataType' => 'html',
+            'success'  => 'js: function(data){
+                $("#data").html(data);
+            }'
+        ), array('class' => 'button', 'style' => 'color:white')); ?>
+    </span>
+</div>
 
-), array('class' => 'button', 'style' => 'color:white'));
-?></span></div>
 <br>
+
 <div id="data">
-    <?php $this->renderPartial('content', array('model' => $model, 'pages' => $pages, 'count' => $count)); ?>
+    <?php $this->renderPartial('content', array('model' => $model, 'pages' => $pages)); ?>
 </div>

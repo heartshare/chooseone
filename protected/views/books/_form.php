@@ -3,6 +3,7 @@
 /* @var $model Books */
 /* @var $form CActiveForm */
 ?>
+
 <div class="col-lg-4">
     <div class="form">
 

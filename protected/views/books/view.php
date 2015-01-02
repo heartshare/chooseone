@@ -2,8 +2,8 @@
 /* @var $this BooksController */
 /* @var $model Books */
 if (Yii::app()->user->getRole() == 2) {
-    echo CHtml::link('Редагувати', array('books/update', 'id' => $model->id, array('id' => 'edit')));
-    echo CHtml::link('Видалити', array('books/delete', 'id' => $model->id), array('id' => 'delbutton'));
+    echo CHtml::link('Редагувати', array('books/update', 'id' => $model->id, array('id' => 'edit', 'class' => 'btn btn-success')));
+    echo CHtml::link('Видалити', array('books/delete', 'id' => $model->id), array('id' => 'delbutton', 'class' => 'btn btn-success'));
 }
 if (Yii::app()->user->hasFlash('commentSubmitted')) { ?>
     <div class="alert alert-success">

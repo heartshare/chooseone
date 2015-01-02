@@ -3,6 +3,6 @@
 /* @var $model Games */
 ?>
 
-<h1>Create Games</h1>
+<h1>Додати гру</h1>
 
-<?php $this->renderPartial('_form', array('model'=>$model,'screens'=>$screens)); ?>
+<?php $this->renderPartial('_form', array('model' => $model, 'screens' => $screens));

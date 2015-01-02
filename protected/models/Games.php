@@ -27,10 +27,10 @@ class Games extends CActiveRecord
     public function rules()
     {
         return array(
-            array('image', 'file', 'types' => 'jpg,png,gif', 'allowEmpty' => true, 'on' => 'create,updates'),
-            array('name, description', 'required'),
+            array('image', 'file', 'types' => 'jpg, png', 'allowEmpty' => true, 'on' => 'create, updates'),
+            array('name, description, genre', 'required'),
             array('name', 'length', 'max' => 255),
-            array('id, name, description, image', 'safe', 'on' => 'search'),
+            array('id, name, description, genre, image', 'safe', 'on' => 'search'),
         );
     }
 
@@ -91,7 +91,7 @@ class Games extends CActiveRecord
     }
 
     /**
-     * Дія зо виконується з екземпляром моделі після збереження
+     * Дія що виконується з екземпляром моделі після збереження
      *
      * @return mixed
      */
@@ -101,10 +101,10 @@ class Games extends CActiveRecord
         if (isset($_FILES['screens'])) {
             $images = CUploadedFile::getInstancesByName('screens');
             if (isset($images) && count($images) > 0) {
-                foreach ($images as $pic) {
+                foreach ($images as $picture) {
                     $screens = new Screens;
-                    $pic->saveAs(Yii::getPathOfAlias('webroot.images.games.screens') . DIRECTORY_SEPARATOR . $pic);
-                    $screens->image = $pic->name;
+                    $picture->saveAs(Yii::getPathOfAlias('webroot.images.games.screens') . DIRECTORY_SEPARATOR . $picture);
+                    $screens->image = $picture->name;
                     $screens->game_id = $this->id;
                     $screens->save();
                 }
