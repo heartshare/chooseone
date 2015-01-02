@@ -28,7 +28,7 @@ Yii::app()->clientScript->registerScript(
                     <div class="form-group">
                         <?php echo $form->labelEx($model, 'login'); ?>
                         <div class="controls">
-                            <?php echo $form->textField($model, 'login', array('class' => 'form-control')); ?>
+                            <?php echo $form->textField($model, 'login', array('id' => 'login', 'class' => 'form-control')); ?>
                         </div>
                         <?php echo $form->error($model, 'login'); ?>
                     </div>
@@ -38,7 +38,7 @@ Yii::app()->clientScript->registerScript(
                     <div class="form-group">
                         <?php echo $form->labelEx($model, 'password'); ?>
                         <div class="controls">
-                            <?php echo $form->passwordField($model, 'password', array('class' => 'form-control')); ?>
+                            <?php echo $form->passwordField($model, 'password', array('id' => 'password', 'class' => 'form-control')); ?>
                         </div>
                         <?php echo $form->error($model, 'password'); ?>
                     </div>
@@ -48,13 +48,13 @@ Yii::app()->clientScript->registerScript(
                     <div class="form-group">
                         <?php echo $form->labelEx($model, 'email'); ?>
                         <div class="controls">
-                            <?php echo $form->textField($model, 'email', array('class' => 'form-control')); ?>
+                            <?php echo $form->textField($model, 'email', array('id' => 'email', 'class' => 'form-control')); ?>
                         </div>
                         <?php echo $form->error($model, 'email'); ?>
                     </div>
                 </div>
 
-                <?php echo CHtml::submitButton('Реєстрація', array('class' => 'btn btn-success')); ?>
+                <?php echo CHtml::submitButton('Реєстрація', array('id' => 'register', 'class' => 'btn btn-success')); ?>
 
                 <?php $this->endWidget(); ?>
             </div>
