@@ -3,7 +3,7 @@
 /* @var $model Films */
 
 if (Yii::app()->user->getRole() == 2) {
-    echo CHtml::link('Редагувати', array('films/update', 'id' => $model->id, array('id' => 'edit', 'class' => 'btn btn-success')));
+    echo CHtml::link('Редагувати', array('films/update', 'id' => $model->id), array('id' => 'edit', 'class' => 'btn btn-success'));
     echo CHtml::link('Видалити', array('films/delete', 'id' => $model->id), array('id' => 'delbutton', 'class' => 'btn btn-success'));
 }
 
@@ -50,6 +50,6 @@ if (!Yii::app()->user->isGuest) {
     echo "<h2>Ви повинні бути авторизовані, щоб залишити коментар</h2>";
 }
 
-$this->renderPartial('\comments\_comments', array(
+$this->renderPartial('/comments/_comments', array(
     'comments' => $comments,
 ));

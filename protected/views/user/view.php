@@ -66,7 +66,7 @@
                 <h3>Досягнення</h3> <br/>
                 <?php foreach ($model->user->feed as $feed) { ?>
                     <h3><?php echo $feed->description; ?></h3>
-                    <img src='/images/feed/<?php echo $feed->picture; ?>' title='<?php $feed->title ?>'>
+                    <img src='<?php echo Yii::app()->request->baseUrl; ?>/images/feed/<?php echo $feed->picture; ?>' title='<?php $feed->title ?>'>
                 <?php } ?>
             </div>
         </div>

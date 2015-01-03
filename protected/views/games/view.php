@@ -18,7 +18,7 @@ if (Yii::app()->user->hasFlash('commentSubmitted')) {
 
     <div>
         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/games/<?php echo $model->image; ?>" width="100"
-             height="100" id="imgo">
+             height="100">
 
         <h3><?php echo $model->name; ?></h3>
 

@@ -120,10 +120,10 @@ class UserController extends Controller
         $criteria->params = array('id' => $id);
         $count = Comments::model()->count($criteria);
         $relator = new Relator;
-        if ($count == 1) {
+        if ($count == 1 || $count < 5) {
             $relator->user_id = $id;
             $relator->feed_id = 1;
-        } else if ($count == 5) {
+        } else if ($count == 5 || $count < 10) {
             $relator->user_id = $id;
             $relator->feed_id = 2;
         } else if ($count == 10) {
