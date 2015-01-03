@@ -29,9 +29,9 @@ class Books extends CActiveRecord
         return array(
             array('image', 'file', 'types' => 'jpg,png,gif', 'allowEmpty' => true, 'on' => 'insert, update'),
             array('book', 'file', 'types' => 'pdf', 'allowEmpty' => true, 'on' => 'insert, update'),
-            array('name, description', 'required'),
+            array('name, description, genre, author', 'required'),
             array('name, description', 'length', 'max' => 255),
-            array('name', 'safe', 'on' => 'search'),
+            array('name, description, genre, author', 'safe', 'on' => 'search'),
         );
     }
 

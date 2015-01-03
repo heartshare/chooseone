@@ -28,8 +28,8 @@ class Films extends CActiveRecord
         return array(
             array('image', 'file', 'types' => 'jpg, png, gif', 'allowEmpty' => true, 'on' => 'insert, update'),
             array('vfile', 'file', 'types' => 'mp4', 'maxSize' => 150 * 1024 * 1024, 'allowEmpty' => true, 'on' => 'insert, update'),
-            array('name, description', 'required'),
-            array('id, name, description', 'safe', 'on' => 'search'),
+            array('name, description, genre', 'required'),
+            array('id, name, description, genre', 'safe', 'on' => 'search'),
         );
     }
 
@@ -42,7 +42,6 @@ class Films extends CActiveRecord
     {
         return array(
             'comments' => array(self::HAS_MANY, 'Comments', 'film_id'),
-            'likes'    => array(self::HAS_ONE, 'Likes', 'film_id'),
         );
     }
 

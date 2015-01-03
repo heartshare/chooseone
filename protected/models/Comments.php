@@ -43,6 +43,7 @@ class Comments extends CActiveRecord
             'films'  => array(self::BELONGS_TO, 'Films', 'film_id'),
             'author' => array(self::BELONGS_TO, 'User', 'author_id'),
             'books'  => array(self::BELONGS_TO, 'Books', 'book_id'),
+            'games'  => array(self::BELONGS_TO, 'Games', 'game_id'),
         );
     }
 
