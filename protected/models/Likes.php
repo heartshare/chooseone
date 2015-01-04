@@ -5,7 +5,9 @@
  *
  * Атрибути нижче доступні для таблиці '{{likes}}':
  * @property integer $id
- * @property integer $likes
+ * @property integer $up
+ * @property integer $down
+ * @property integer $user_id
  * @property integer $film_id
  * @property integer $game_id
  * @property integer $book_id
@@ -26,8 +28,8 @@ class Likes extends CActiveRecord
     public function rules()
     {
         return array(
-            array('likes, film_id, game_id, book_id', 'numerical', 'integerOnly' => true),
-            array('id, likes, film_id, game_id, book_id', 'safe', 'on' => 'search'),
+            array('up, down, film_id, game_id, book_id, user_id', 'numerical', 'integerOnly' => true),
+            array('id, up, down, film_id, game_id, book_id, user_id', 'safe', 'on' => 'search'),
         );
     }
 
@@ -39,7 +41,10 @@ class Likes extends CActiveRecord
     public function relations()
     {
         return array(
-            'films' => array(self::BELONGS_TO, 'Films', 'film_id'),
+            'film' => array(self::BELONGS_TO, 'Films', 'film_id'),
+            'book' => array(self::BELONGS_TO, 'Books', 'book_id'),
+            'game' => array(self::BELONGS_TO, 'Games', 'game_id'),
+            'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
         );
     }
 
@@ -50,10 +55,12 @@ class Likes extends CActiveRecord
     {
         return array(
             'id'      => 'ID',
-            'likes'   => 'Likes',
+            'up'      => 'Likes',
+            'down'    => 'Likes',
             'film_id' => 'Film',
             'game_id' => 'Game',
             'book_id' => 'Book',
+            'user_id' => 'Voter'
         );
     }
 
