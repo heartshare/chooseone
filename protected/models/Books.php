@@ -85,7 +85,7 @@ class Books extends CActiveRecord
     /**
      * Повертає екземпляр класу моделі
      *
-     * @param string $className active record class name.
+     * @param string $className
      * @return Books the static model class
      */
     public static function model($className = __CLASS__)
@@ -116,5 +116,21 @@ class Books extends CActiveRecord
         $comment->book_id = $this->id;
 
         return $comment->save();
+    }
+
+    /**
+     * Забираємо всі коментарі для даного екземпляру
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function getComments($id)
+    {
+        $criteria = new CDbCriteria();
+        $criteria->order = 'id DESC';
+        $criteria->condition = 'book_id=' . $id;
+        $comments = Comments::model()->findAll($criteria);
+
+        return $comments;
     }
 }

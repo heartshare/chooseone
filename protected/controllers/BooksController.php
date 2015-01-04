@@ -59,10 +59,12 @@ class BooksController extends Controller
     {
         $model = $this->loadModel($id, Books::model());
         $comment = $this->newComment($model);
+        $comments = Books::model()->getComments($id);
 
         return $this->render('view', array(
             'model'   => $model,
             'comment' => $comment,
+            'comments' => $comments,
         ));
     }
 
@@ -152,9 +154,13 @@ class BooksController extends Controller
         $criteria->order = 'id DESC';
         $criteria->condition = 'genre=:genre';
         $criteria->params = array(':genre' => $_GET['genre']);
+        $count = Books::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = 5;
+        $pages->applyLimit($criteria);
         $model = Books::model()->findAll($criteria);
 
-        return $this->renderPartial('content', array('model' => $model));
+        return $this->renderPartial('content', array('model' => $model, 'pages' => $pages));
     }
 
     /**

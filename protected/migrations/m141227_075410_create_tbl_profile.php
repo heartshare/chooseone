@@ -13,6 +13,7 @@ class m141227_075410_create_tbl_profile extends CDbMigration
             'user_id'    => 'INT(10) DEFAULT NULL',
             'ban'        => 'TINYINT(10)',
         ));
+//        $this->addForeignKey('user_profile', 'tbl_profile', 'user_id', 'tbl_user', 'id', 'CASCADE', 'CASCADE');
     }
 
     public function down()

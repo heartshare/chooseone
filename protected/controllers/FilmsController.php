@@ -151,10 +151,15 @@ class FilmsController extends Controller
         $criteria->order = 'id DESC';
         $criteria->condition = 'genre = :genre';
         $criteria->params = array(':genre' => $_GET['genre']);
-        $model = Films::model()->findAllByAttributes(array('genre' => $_GET['genre']), $criteria);
+        $count = Books::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = 5;
+        $pages->applyLimit($criteria);
+        $model = Films::model()->findAll($criteria);
 
         return $this->renderPartial('content', array(
             'model' => $model,
+            'pages' => $pages
         ));
     }
 

@@ -33,5 +33,5 @@ if (!Yii::app()->user->isGuest) {
 }
 
 $this->renderPartial('/comments/_comments', array(
-    'comments' => $model->comments,
+    'comments' => $comments,
 ));

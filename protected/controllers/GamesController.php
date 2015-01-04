@@ -142,9 +142,13 @@ class GamesController extends Controller
         $criteria->order = 'id DESC';
         $criteria->condition = 'genre=:genre';
         $criteria->params = array(':genre' => $_GET['genre']);
+        $count = Games::model()->count($criteria);
+        $pages = new CPagination($count);
+        $pages->pageSize = 5;
+        $pages->applyLimit($criteria);
         $model = Games::model()->findAll($criteria);
 
-        return $this->renderPartial('content', array('model' => $model));
+        return $this->renderPartial('content', array('model' => $model, 'pages' => $pages));
     }
 
     /**
