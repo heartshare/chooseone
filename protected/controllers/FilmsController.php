@@ -27,23 +27,43 @@ class FilmsController extends Controller
     }
 
     /**
-     * Відображення усіх фільмів
+     * Відображення усіх фільмів, пошук за назвою та фільт за жанром
      *
      * @return string
      */
     public function actionIndex()
     {
-        $criteria = new CDbCriteria();
-        $criteria->order = 'id DESC';
-        $count = Films::model()->count($criteria);
-        $pages = new CPagination($count);
-        $pages->pageSize = 5;
-        $pages->applyLimit($criteria);
-        $model = Films::model()->findAll($criteria);
+        $dataProvider = new CActiveDataProvider('Films', array(
+            'pagination' => array(
+                'pageSize' => 5,
+            ),));
+        if (Yii::app()->request->isAjaxRequest) {
+            if (isset($_POST['name'])) {
+                $criteria = array(
+                    'condition' => 'name = :name',
+                    'params'    => array(':name' => $_POST['name']),
+                    'order'     => 'id DESC'
+                );
+            } else {
+                $criteria = array(
+                    'condition' => 'genre=:genre',
+                    'params'    => array(':genre' => $_POST['genre']),
+                    'order'     => 'id DESC'
+                );
+            }
+            $dataProvider = new CActiveDataProvider('Books', array(
+                'criteria'   => $criteria,
+                'pagination' => array(
+                    'pageSize' => 5,
+                ),));
+
+            return $this->renderPartial('content', array(
+                'dataProvider' => $dataProvider
+            ));
+        }
 
         return $this->render('index', array(
-            'model' => $model,
-            'pages' => $pages,
+            'dataProvider' => $dataProvider
         ));
     }
 
@@ -138,49 +158,6 @@ class FilmsController extends Controller
         if (!isset($_GET['ajax'])) {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
-    }
-
-    /**
-     * Аяксовий пошук відповідних фільмів за жанром
-     *
-     * @return string
-     */
-    public function actionAjax()
-    {
-        $criteria = new CDbCriteria();
-        $criteria->order = 'id DESC';
-        $criteria->condition = 'genre = :genre';
-        $criteria->params = array(':genre' => $_GET['genre']);
-        $count = Books::model()->count($criteria);
-        $pages = new CPagination($count);
-        $pages->pageSize = 5;
-        $pages->applyLimit($criteria);
-        $model = Films::model()->findAll($criteria);
-
-        return $this->renderPartial('content', array(
-            'model' => $model,
-            'pages' => $pages
-        ));
-    }
-
-    /**
-     * Пошук фільмів за назвою
-     *
-     * @return mixed|null|string
-     */
-    public function actionSearch()
-    {
-        $response = null;
-        if (isset($_GET['name'])) {
-            $model = Films::model()->findAllByAttributes(array('name' => $_GET['name']));
-            if ($model) {
-                $response = $this->renderPartial('content', array('model' => $model));
-            } else {
-                $response = 'За вашим запитом нічого не знайдено';
-            }
-        }
-
-        return $response;
     }
 
     /**

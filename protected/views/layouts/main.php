@@ -44,7 +44,7 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active">
+                        <li>
                             <?php echo CHtml::link('Books', $this->createUrl('books/index')); ?>
                         </li>
                         <li>
