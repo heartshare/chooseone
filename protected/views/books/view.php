@@ -22,6 +22,17 @@ if (Yii::app()->user->hasFlash('commentSubmitted')) { ?>
     Завантажити:
     <a href="<?php echo Yii::app()->request->baseUrl; ?>/uploads/books/<?php echo $model->book; ?>" title="download it"><?php echo $model->book; ?></a>
 </div>
+
+<div>
+    <span class="glyphicon glyphicon-hand-up" id="vote_up" data-book="<?php echo $model->id; ?>" data-voter="<?php echo Yii::app()->user->id; ?>">
+        <span id="up_count">0</span>
+    </span>
+
+    <span class="glyphicon glyphicon-hand-down" id="vote_down" data-book="<?php echo $model->id; ?>" data-voter="<?php echo Yii::app()->user->id; ?>">
+        <span id="dwn_count">0</span>
+    </span>
+</div>
+
 <br>
 <?php
 if (!Yii::app()->user->isGuest) {
