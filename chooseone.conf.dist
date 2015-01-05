@@ -1,4 +1,4 @@
-# Файл налаштувань віртуального хоста для кореткної роботи urlManager
+# Файл налаштувань віртуального хоста для коректної роботи urlManager
 <VirtualHost *:80>
     DocumentRoot /var/www/chooseone/
     ServerName chooseone

@@ -2,27 +2,14 @@
 /* @var $this BooksController */
 /* @var $data Books */
 ?>
-
-<div class="view">
-
-    <b><?php echo CHtml::encode($data->getAttributeLabel('id')); ?>:</b>
-    <?php echo CHtml::link(CHtml::encode($data->id), array('view', 'id' => $data->id)); ?>
-    <br/>
-
-    <b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
-    <?php echo CHtml::encode($data->name); ?>
-    <br/>
-
-    <b><?php echo CHtml::encode($data->getAttributeLabel('description')); ?>:</b>
-    <?php echo CHtml::encode($data->description); ?>
-    <br/>
-
-    <b><?php echo CHtml::encode($data->getAttributeLabel('book')); ?>:</b>
-    <?php echo CHtml::encode($data->book); ?>
-    <br/>
-
-    <b><?php echo CHtml::encode($data->getAttributeLabel('date')); ?>:</b>
-    <?php echo CHtml::encode($data->date); ?>
-    <br/>
-
+<div id="content">
+    <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/books/<?php echo $data->image; ?>" width="100"
+         height="100">
+    <h2><?php echo CHtml::link($data->name, array('books/view', 'id' => $data->id)); ?></h2>
+    <?php if (strlen($data->description) > 500) { ?>
+        <p><?php echo mb_substr($data->description, 0, 200, 'utf8') . "..."; ?></p>
+        <?php echo CHtml::link('Читати далі', array('view', 'id' => $data->id)); ?>
+    <?php } else { ?>
+        <p><?php echo $data->description; ?></p>
+    <?php } ?>
 </div>
