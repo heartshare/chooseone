@@ -51,7 +51,7 @@ class FilmsController extends Controller
                     'order'     => 'id DESC'
                 );
             }
-            $dataProvider = new CActiveDataProvider('Books', array(
+            $dataProvider = new CActiveDataProvider('Films', array(
                 'criteria'   => $criteria,
                 'pagination' => array(
                     'pageSize' => 5,

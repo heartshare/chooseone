@@ -2,22 +2,10 @@
 /* @var $this FilmsController */
 /* @var $model Films */
 
-foreach ($model as $game) { ?>
-    <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/games/<?php echo $game->image; ?>" width="100" height="100">
-    <div id="content">
-        <h3 id="name"><?php echo CHtml::link($game->name, array('view', 'id' => $game->id)); ?></h3>
-        <?php if (strlen($game->description) > 150) { ?>
-
-            <p id="descript"><?php echo mb_substr($game->description, 0, 250, 'utf8') . "..."; ?></p>
-            <?php echo CHtml::link('Читати далі', array('view', 'id' => $game->id)); ?>
-
-        <?php } ?>
-    </div>
-<?php }
-
-$this->widget('CLinkPager', array(
-    'pages' => $pages,
-    'prevPageLabel' => '&laquo; назад',
-    'nextPageLabel' => 'далі &raquo;',
-    'cssFile' => Yii::app()->baseUrl . '/css/pager.css',
+$this->widget('zii.widgets.CListView', array(
+    'dataProvider'     => $dataProvider,
+    'itemView'         => '_view',
+    'template'         => "{items}\n{pager}",
+    'ajaxUpdate'       => 'true',
+    'enablePagination' => true,
 ));

@@ -6,8 +6,8 @@
     <?php
     echo CHtml::dropDownList('list', 'genre', CHtml::listData(Games::model()->findAll(), 'genre', 'genre'), array(
         'ajax' => array(
-            'type' => 'GET',
-            'url' => $this->createUrl('games/ajax'),
+            'type' => 'POST',
+            'url' => $this->createUrl('games/index'),
             'data' => array('genre' => 'js:this.value',),
             'dataType' => 'html',
             'success' => 'js: function(data){
@@ -19,8 +19,8 @@
 <span id="my-search">
     <?php
     echo CHtml::textField('Пошук по розділу', '', array('id' => 'tf'));
-    echo CHtml::ajaxLink('Пошук', array('games/search'), array(
-        'type' => 'GET',
+    echo CHtml::ajaxLink('Пошук', array('games/index'), array(
+        'type' => 'POST',
         'data' => array('name' => 'js: $("#tf").val()'),
         'dataType' => 'html',
         'success' => 'js: function(data){
@@ -34,5 +34,5 @@
 <br>
 
 <div id="data">
-    <?php $this->renderPartial('content', array('model' => $model, 'pages' => $pages)) ?>
+    <?php $this->renderPartial('content', array('dataProvider' => $dataProvider)); ?>
 </div>
