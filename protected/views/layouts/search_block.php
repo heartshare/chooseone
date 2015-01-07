@@ -23,7 +23,6 @@
         'success'  => 'js: function(data){
             $("#data").html(data);
         }'
-
     ), array('class' => 'button', 'style' => 'color:white'));?>
 </span>
 </div>

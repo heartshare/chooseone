@@ -143,4 +143,20 @@ class Games extends CActiveRecord
 
         return $comments;
     }
+
+    /**
+     * @return int
+     */
+    public function getUpVotes()
+    {
+        return count(Likes::model()->findAllByAttributes(array('game_id' => $this->id, 'up' => 1)));
+    }
+
+    /**
+     * @return int
+     */
+    public function getDownVotes()
+    {
+        return count(Likes::model()->findAllByAttributes(array('game_id' => $this->id, 'down' => 1)));
+    }
 }

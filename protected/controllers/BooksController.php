@@ -39,7 +39,7 @@ class BooksController extends Controller
             'pagination' => array(
                 'pageSize' => 5,
             ),));
-        if (Yii::app()->request->isAjaxRequest) {
+        if (Yii::app()->request->isAjaxRequest && (isset($_POST['name']) || isset($_POST['genre']))) {
             if (isset($_POST['name'])) {
                 $criteria = array(
                     'condition' => 'name = :name',

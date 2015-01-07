@@ -16,6 +16,10 @@ class GamesController extends Controller
                 'users'   => array('*'),
             ),
             array('allow',
+                'actions' => array('rating'),
+                'users'   => array('@'),
+            ),
+            array('allow',
                 'actions' => array('create', 'update', 'admin', 'delete'),
                 'users'   => array(Yii::app()->user->name),
                 'roles'   => array(2),
@@ -34,10 +38,14 @@ class GamesController extends Controller
     public function actionIndex()
     {
         $dataProvider = new CActiveDataProvider('Games', array(
+            'criteria' => array(
+                'order' => 'id DESC'
+            ),
             'pagination' => array(
                 'pageSize' => 5,
-            ),));
-        if (Yii::app()->request->isAjaxRequest) {
+            ),
+        ));
+        if (Yii::app()->request->isAjaxRequest && (isset($_POST['name']) || isset($_POST['genre']))) {
             if (isset($_POST['name'])) {
                 $criteria = array(
                     'condition' => 'name = :name',
@@ -170,5 +178,44 @@ class GamesController extends Controller
         return $this->render('admin', array(
             'model' => $model,
         ));
+    }
+
+    public function actionRating()
+    {
+        if (Yii::app()->request->isAjaxRequest) {
+            $model = Likes::model()->findByAttributes(array('user_id' => $_POST['voter'], 'game_id' => $_POST['model']));
+            if (null != $model) {
+                if (isset($_POST['up']) && $model->up != 1) {
+                    $model->up = 1;
+                    $model->down = 0;
+                } else if (isset($_POST['down']) && $model->down != 1) {
+                    $model->up = 0;
+                    $model->down = 1;
+                } else {
+                    $model->up = 0;
+                    $model->down = 0;
+                }
+            } else {
+                $model = new Likes();
+                if ($_POST['up']) {
+                    $model->up = 1;
+                    $model->down = 0;
+                } else {
+                    $model->up = 0;
+                    $model->down = 1;
+                }
+            }
+            $model->user_id = $_POST['voter'];
+            $model->game_id = $_POST['model'];
+            $model->save();
+
+            /*return CJSON::encode(array(
+                'up' => count(Likes::model()->findAllByAttributes(array('game_id' => $_POST['model'], 'up' => 1))),
+                'down' => count(Likes::model()->findAllByAttributes(array('game_id' => $_POST['model'], 'down' => 1))),
+                )
+            );*/
+            return count(Likes::model()->findAllByAttributes(array('game_id' => $_POST['model'], 'up' => 1)));
+
+        }
     }
 }
