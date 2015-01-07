@@ -1,33 +1,12 @@
 <?php
 /* @var $this BooksController */
 /* @var $dataProvider CActiveDataProvider */
+
+$this->renderPartial('/layouts/search_block', array(
+    'url' => 'books/index',
+    'model' => Books::model()
+));
 ?>
-<div>
-    <?php
-    echo CHtml::dropDownList('list', 'genre', CHtml::listData(Books::model()->findAll(), 'genre', 'genre'), array(
-        'ajax' => array(
-            'type' => 'POST',
-            'url' => $this->createUrl('books/index'),
-            'data' => array('genre' => 'js:this.value',),
-            'dataType' => 'html',
-            'success' => 'js: function(data){
-               $("#data").html(data);
-             }',
-        ), 'empty' => 'Виберіть жанр',
-    ));
-     echo "Пошук по розділу";
-     echo CHtml::textField('Введіть текст', '', array('id' => 'tf'));
-
-     echo CHtml::ajaxLink('Пошук', array('books/index'),
-         array(
-             'type' => 'POST',
-             'data' => array('name' => 'js: $("#tf").val()'),
-             'dataType' => 'html',
-             'success' => 'js: function(data){ $("#data").html(data); }'
-         ), array('class' => 'button', 'style' => 'color:white'));
-    ?>
-
-</div>
 
 <br>
 
