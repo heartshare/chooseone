@@ -9,6 +9,10 @@
     <?php $form = $this->beginWidget('CActiveForm', array(
         'id' => 'comments-form',
         'enableAjaxValidation' => false,
+        'enableClientValidation' => true,
+        'clientOptions' => array(
+            'validateOnSubmit' => true,
+        ),
     )); ?>
 
     <h2>Додай власний коментар!</h2>

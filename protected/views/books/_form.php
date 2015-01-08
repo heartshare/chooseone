@@ -10,6 +10,10 @@
         <?php $form = $this->beginWidget('CActiveForm', array(
             'id' => 'books-form',
             'enableAjaxValidation' => false,
+            'enableClientValidation' => true,
+            'clientOptions' => array(
+                'validateOnSubmit' => true,
+            ),
             'htmlOptions' => array('enctype' => 'multipart/form-data'),
         )); ?>
 

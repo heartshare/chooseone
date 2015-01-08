@@ -3,6 +3,7 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm */
 ?>
+
 <div class="col-lg-4">
     <div class="form">
         <?php $form = $this->beginWidget('CActiveForm', array(
@@ -14,7 +15,7 @@
         )); ?>
         <div class="row">
             <?php echo $form->labelEx($model, 'username'); ?>
-            <?php echo $form->textField($model, 'username', array('class' => 'form-control', 'id' => 'username')); ?>
+            <?php echo $form->textField($model, 'username', array('minlength' => 2,'class' => 'form-control', 'id' => 'username', "data-required" => "true")); ?>
             <?php echo $form->error($model, 'username'); ?>
         </div>
 
