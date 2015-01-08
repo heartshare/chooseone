@@ -197,7 +197,7 @@ class GamesController extends Controller
                 }
             } else {
                 $model = new Likes();
-                if ($_POST['up']) {
+                if (isset($_POST['up'])) {
                     $model->up = 1;
                     $model->down = 0;
                 } else {
@@ -209,7 +209,8 @@ class GamesController extends Controller
             $model->game_id = $_POST['model'];
             $model->save();
 
-            return json_encode(array(
+            header('Content-type: application/json');
+            echo CJSON::encode(array(
                 'up' => count(Likes::model()->findAllByAttributes(array('game_id' => $_POST['model'], 'up' => 1))),
                 'down' => count(Likes::model()->findAllByAttributes(array('game_id' => $_POST['model'], 'down' => 1))),
             ));

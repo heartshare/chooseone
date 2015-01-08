@@ -48,9 +48,9 @@ if (Yii::app()->user->hasFlash('commentSubmitted')) {
             ),
             'dataType' => 'json',
             'success'  => 'js: function(data) {
-                  console.log(data);
-//                $(this).html(data.up);
-//                $("#dwn_vote").html(data.down);
+                // console.log(data);
+                $(this).html(data.up);
+                $("#dwn_vote").html(data.down);
             }'
         ), array('class' => 'glyphicon glyphicon-hand-up', 'id' => 'up_vote'));
 
