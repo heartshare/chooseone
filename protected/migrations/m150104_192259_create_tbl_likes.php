@@ -5,7 +5,7 @@ class m150104_192259_create_tbl_likes extends CDbMigration
     public function up()
     {
         $this->createTable('tbl_likes', array(
-            'id'      => 'INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
+            'id'      => 'pk',
             'up'      => 'INT(10) NOT NULL',
             'down'    => 'INT(10) NOT NULL',
             'film_id' => 'INT(10) NOT NULL',

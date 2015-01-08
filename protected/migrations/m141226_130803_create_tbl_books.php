@@ -5,7 +5,7 @@ class m141226_130803_create_tbl_books extends CDbMigration
     public function up()
     {
         $this->createTable('tbl_books', array(
-            'id'          => 'INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
+            'id'          => 'pk',
             'name'        => 'VARCHAR(255) NOT NULL',
             'description' => 'VARCHAR(255) NOT NULL',
             'author'      => 'VARCHAR(255) NOT NULL',

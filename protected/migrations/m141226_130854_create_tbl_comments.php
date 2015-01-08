@@ -5,7 +5,7 @@ class m141226_130854_create_tbl_comments extends CDbMigration
     public function up()
     {
         $this->createTable('tbl_comments', array(
-            'id'        => 'INT(10) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY',
+            'id'        => 'pk',
             'content'   => 'VARCHAR(255) NOT NULL',
             'date'      => 'DATETIME NOT NULL',
             'film_id'   => 'INT(10) NOT NULL',
