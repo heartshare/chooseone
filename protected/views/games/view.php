@@ -46,7 +46,7 @@ if (Yii::app()->user->hasFlash('commentSubmitted')) {
                 'model' => $model->id,
                 'up'    => true
             ),
-            'dataType' => 'html',
+            'dataType' => 'json',
             'success'  => 'js: function(data) {
                   console.log(data);
 //                $(this).html(data.up);
@@ -62,7 +62,7 @@ if (Yii::app()->user->hasFlash('commentSubmitted')) {
                 'down'  => true,
             ),
             'dataType' => 'json',
-            'success'  => 'js: function(data){
+            'success'  => 'js: function(data) {
                 console.log(data);
             }'
         ), array('class' => 'glyphicon glyphicon-hand-down', 'id' => 'dwn_vote'));

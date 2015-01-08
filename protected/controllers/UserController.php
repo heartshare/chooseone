@@ -120,13 +120,16 @@ class UserController extends Controller
         $criteria->params = array('id' => $id);
         $count = Comments::model()->count($criteria);
         $relator = new Relator;
-        if ($count == 1 || $count < 5) {
+        if ((Relator::model()->findByAttributes(array('user_id' => $id, 'feed_id' => 1)) == null)
+            && ($count == 1 || $count < 5)) {
             $relator->user_id = $id;
             $relator->feed_id = 1;
-        } else if ($count == 5 || $count < 10) {
+        } else if ((Relator::model()->findByAttributes(array('user_id' => $id, 'feed_id' => 2)) == null)
+            && ($count == 5 || ($count < 10 && $count > 5))) {
             $relator->user_id = $id;
             $relator->feed_id = 2;
-        } else if ($count == 10) {
+        } else if ((Relator::model()->findByAttributes(array('user_id' => $id, 'feed_id' => 3)) == null)
+            && ($count == 10)) {
             $relator->user_id = $id;
             $relator->feed_id = 3;
         }

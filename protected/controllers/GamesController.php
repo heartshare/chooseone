@@ -209,13 +209,10 @@ class GamesController extends Controller
             $model->game_id = $_POST['model'];
             $model->save();
 
-            /*return CJSON::encode(array(
+            return json_encode(array(
                 'up' => count(Likes::model()->findAllByAttributes(array('game_id' => $_POST['model'], 'up' => 1))),
                 'down' => count(Likes::model()->findAllByAttributes(array('game_id' => $_POST['model'], 'down' => 1))),
-                )
-            );*/
-            return count(Likes::model()->findAllByAttributes(array('game_id' => $_POST['model'], 'up' => 1)));
-
+            ));
         }
     }
 }
