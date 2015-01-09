@@ -96,7 +96,6 @@ class Books extends CActiveRecord
         $criteria->compare('name', $this->name, true);
         $criteria->compare('description', $this->description, true);
         $criteria->compare('book', $this->book, true);
-        $criteria->compare('date', $this->date, true);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

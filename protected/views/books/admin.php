@@ -15,7 +15,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'name',
         'description',
         'book',
-        'date',
         array(
             'class' => 'CButtonColumn',
         ),
