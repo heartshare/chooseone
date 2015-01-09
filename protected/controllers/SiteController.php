@@ -9,7 +9,7 @@ class SiteController extends Controller
     public function actions()
     {
         return array(
-            'captcha' => array( // captcha action renders the CAPTCHA image displayed on the contact page
+            'captcha' => array( // рендерить картинку з капчею на сторінці контакту
                 'class'     => 'CCaptchaAction',
                 'backColor' => 0xFFFFFF,
             ),
@@ -39,7 +39,11 @@ class SiteController extends Controller
             if (Yii::app()->request->isAjaxRequest) {
                 $response = $error['message'];
             } else {
-                $response = $this->render('error', $error);
+                if ($error['code'] === 404) {
+                    $response = $this->renderPartial('error', $error);
+                } else {
+                    $response = $this->render('error', $error);
+                }
             }
         }
 
