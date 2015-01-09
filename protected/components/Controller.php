@@ -8,18 +8,6 @@ class Controller extends CController
 {
 
     /**
-     * Фільтри для дій контролера
-     *
-     * @return array action filters
-     */
-    public function filters()
-    {
-        return array(
-            'accessControl',
-        );
-    }
-
-    /**
      * Обробляємо новий коментар для переданої в параметри моделі
      *
      * @param $model

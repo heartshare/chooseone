@@ -7,6 +7,18 @@ class UserController extends Controller
 {
 
     /**
+     * Фільтри для дій контролера
+     *
+     * @return array action filters
+     */
+    public function filters()
+    {
+        return array(
+            'accessControl',
+        );
+    }
+
+    /**
      * Права доступу до дій контролера
      *
      * @return array access control rules

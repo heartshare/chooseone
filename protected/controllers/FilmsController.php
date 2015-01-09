@@ -4,6 +4,19 @@ class FilmsController extends Controller
 {
 
     /**
+     * Фільтри для дій контролера
+     *
+     * @return array action filters
+     */
+    public function filters()
+    {
+        return array(
+            'accessControl',
+            'ajaxOnly + rating',
+        );
+    }
+
+    /**
      * Визначаємо права на дії контролера
      *
      * @return array access control rules
@@ -14,6 +27,10 @@ class FilmsController extends Controller
             array('allow',
                 'actions' => array('index', 'view', 'ajax', 'search'),
                 'users'   => array('*'),
+            ),
+            array('allow',
+                'actions' => array('rating'),
+                'users' => array('@'),
             ),
             array('allow',
                 'actions' => array('create', 'update', 'admin', 'delete'),
@@ -175,6 +192,41 @@ class FilmsController extends Controller
 
         return $this->render('admin', array(
             'model' => $model,
+        ));
+    }
+
+    public function actionRating()
+    {
+        $model = Likes::model()->findByAttributes(array('user_id' => $_POST['voter'], 'film_id' => $_POST['model']));
+        if (null != $model) {
+            if (isset($_POST['up']) && $model->up != 1) {
+                $model->up = 1;
+                $model->down = 0;
+            } else if (isset($_POST['down']) && $model->down != 1) {
+                $model->up = 0;
+                $model->down = 1;
+            } else {
+                $model->up = 0;
+                $model->down = 0;
+            }
+        } else {
+            $model = new Likes();
+            if (isset($_POST['up'])) {
+                $model->up = 1;
+                $model->down = 0;
+            } else {
+                $model->up = 0;
+                $model->down = 1;
+            }
+        }
+        $model->user_id = $_POST['voter'];
+        $model->film_id = $_POST['model'];
+        $model->save();
+
+        header('Content-type: application/json');
+        echo CJSON::encode(array(
+            'up' => count(Likes::model()->findAllByAttributes(array('film_id' => $_POST['model'], 'up' => 1))),
+            'down' => count(Likes::model()->findAllByAttributes(array('film_id' => $_POST['model'], 'down' => 1))),
         ));
     }
 }
