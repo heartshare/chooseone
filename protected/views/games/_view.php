@@ -22,7 +22,7 @@
                 </p>
 
                 <ul class="list-inline list-unstyled">
-                    <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+                    <li><span><i class="glyphicon glyphicon-calendar"></i> <?php echo date('d.m.Y H:i:s', $data->created); ?> </span></li>
                     <li>|</li>
                     <span><i class="glyphicon glyphicon-comment"></i> <?php echo count($data->comments); ?> comments</span>
                     <li>|</li>

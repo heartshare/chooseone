@@ -16,7 +16,7 @@
                             <div class="commentText">
                                 <p><?php echo $coment->content; ?></p>
 
-                                <p><?php echo $coment->date; ?></p>
+                                <p><?php echo $coment->created; ?></p>
                                 By: <?php echo $coment->author->login; ?>
                             </div>
                         </li>

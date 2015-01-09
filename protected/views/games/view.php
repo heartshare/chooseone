@@ -7,8 +7,7 @@ if (Yii::app()->user->getRole() == 2) {
     echo CHtml::link('Видалити', array('games/delete', 'id' => $model->id), array('class' => 'btn btn-success'));
 }
 
-if (Yii::app()->user->hasFlash('commentSubmitted')) {
-    ?>
+if (Yii::app()->user->hasFlash('commentSubmitted')) { ?>
     <div class="alert alert-success">
         <strong>
             <?php echo Yii::app()->user->getFlash('commentSubmitted'); ?>
@@ -36,40 +35,7 @@ if (Yii::app()->user->hasFlash('commentSubmitted')) {
         <?php } ?>
     </div>
 
-    <div>
-        <?php
-
-        echo CHtml::ajaxLink($model->getUpVotes(), array('rating'), array(
-            'type'     => 'POST',
-            'data'     => array(
-                'voter' => Yii::app()->user->id,
-                'model' => $model->id,
-                'up'    => true
-            ),
-            'dataType' => 'json',
-            'success'  => 'js: function(data) {
-                // console.log(data);
-                $(this).html(data.up);
-                $("#dwn_vote").html(data.down);
-            }'
-        ), array('class' => 'glyphicon glyphicon-hand-up', 'id' => 'up_vote'));
-
-        echo CHtml::ajaxLink($model->getDownVotes(), array('rating'), array(
-            'type'     => 'POST',
-            'data'     => array(
-                'voter' => Yii::app()->user->id,
-                'model' => $model->id,
-                'down'  => true,
-            ),
-            'dataType' => 'json',
-            'success'  => 'js: function(data) {
-                console.log(data);
-            }'
-        ), array('class' => 'glyphicon glyphicon-hand-down', 'id' => 'dwn_vote'));
-
-        ?>
-
-    </div>
+    <?php $this->renderPartial('/layouts/rating_block', array('model' => $model)); ?>
 
     <br/>
 <?php
