@@ -3,15 +3,45 @@
 /* @var $data Games */
 ?>
 
-<div class="content">
-    <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/games/<?php echo $data->image; ?>" width="100" height="100">
-    <div id="content">
-        <h3 id="name"><?php echo CHtml::link($data->name, array('view', 'id' => $data->id)); ?></h3>
-        <?php if (strlen($data->description) > 150) { ?>
+<div class="container">
+    <div class="well">
+        <div class="media">
+            <a class="pull-left" href="#">
+                <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/games/<?php echo $data->image; ?>" width="100" height="100">
+            </a>
+            <div class="media-body">
+                <h4 class="media-heading"><?php echo CHtml::link($data->name, array('view', 'id' => $data->id)); ?></h4>
 
-            <p id="descript"><?php echo mb_substr($data->description, 0, 250, 'utf8') . "..."; ?></p>
-            <?php echo CHtml::link('Читати далі', array('view', 'id' => $data->id)); ?>
+                <p>
+                <?php if (strlen($data->description) > 150) {
+                    echo mb_substr($data->description, 0, 250, 'utf8') . "...";
+                } else {
+                    echo $data->description;
+                } ?>
+                <?php echo CHtml::link('Читати далі', array('view', 'id' => $data->id)); ?>
+                </p>
 
-        <?php } ?>
+                <ul class="list-inline list-unstyled">
+                    <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
+                    <li>|</li>
+                    <span><i class="glyphicon glyphicon-comment"></i> <?php echo count($data->comments); ?> comments</span>
+                    <li>|</li>
+                    <!--<li>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star"></span>
+                        <span class="glyphicon glyphicon-star-empty"></span>
+                    </li>
+                    <li>|</li>-->
+                    <li>
+                        <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+                        <span><i class="fa fa-facebook-square"></i></span>
+                        <span><i class="fa fa-twitter-square"></i></span>
+                        <span><i class="fa fa-google-plus-square"></i></span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>

@@ -57,9 +57,9 @@ $this->pageTitle = Yii::app()->name;
 
 
     <div id="owl-demo" class="owl-carousel owl-theme">
-        <div class="item"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/slider/peo1.jpg"></div>
-        <div class="item"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/slider/melo1.jpg"></div>
-        <div class="item"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/slider/212.jpg"></div>
+<!--        <div class="item"><img src="--><?php //echo Yii::app()->request->baseUrl; ?><!--/images/slider/peo1.jpg"></div>-->
+<!--        <div class="item"><img src="--><?php //echo Yii::app()->request->baseUrl; ?><!--/images/slider/melo1.jpg"></div>-->
+<!--        <div class="item"><img src="--><?php //echo Yii::app()->request->baseUrl; ?><!--/images/slider/212.jpg"></div>-->
     </div>
 
     <div id="last-comments">
@@ -72,14 +72,14 @@ $this->pageTitle = Yii::app()->name;
 
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
+   /* $(document).ready(function () {
         $("#owl-demo").owlCarousel({
             navigation: true, // Show next and prev buttons
             slideSpeed: 300,
             paginationSpeed: 400,
             singleItem: true
         });
-    });
+    });*/
 </script>
 
 <style>
