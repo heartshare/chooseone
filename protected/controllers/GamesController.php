@@ -183,7 +183,7 @@ class GamesController extends Controller
     public function actionAdmin()
     {
         $model = new Games('search');
-        $model->unsetAttributes(); // clear any default values
+        $model->unsetAttributes();
         if (isset($_GET['Games'])) {
             $model->attributes = $_GET['Games'];
         }
@@ -193,35 +193,16 @@ class GamesController extends Controller
         ));
     }
 
+    /**
+     * Обробка рейтингу для екземпляру книги
+     */
     public function actionRating()
     {
         $model = Likes::model()->findByAttributes(array('user_id' => $_POST['voter'], 'game_id' => $_POST['model']));
-        if (null != $model) {
-            if (isset($_POST['up']) && $model->up != 1) {
-                $model->up = 1;
-                $model->down = 0;
-            } else if (isset($_POST['down']) && $model->down != 1) {
-                $model->up = 0;
-                $model->down = 1;
-            } else {
-                $model->up = 0;
-                $model->down = 0;
-            }
-        } else {
-            $model = new Likes();
-            if (isset($_POST['up'])) {
-                $model->up = 1;
-                $model->down = 0;
-            } else {
-                $model->up = 0;
-                $model->down = 1;
-            }
-        }
-        $model->user_id = $_POST['voter'];
+        $model = $this->handleRatingInstance($model);
         $model->game_id = $_POST['model'];
         $model->save();
 
-        header('Content-type: application/json');
         echo CJSON::encode(array(
             'up' => count(Likes::model()->findAllByAttributes(array('game_id' => $_POST['model'], 'up' => 1))),
             'down' => count(Likes::model()->findAllByAttributes(array('game_id' => $_POST['model'], 'down' => 1))),

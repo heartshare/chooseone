@@ -44,4 +44,39 @@ class Controller extends CController
 
         return $model;
     }
+
+    /**
+     * Обробляємо екземпляр рейтингу та дані із масиву $_POST,
+     * на основі чого ставимо значення полів для рейтингу
+     *
+     * @param Likes $model
+     * @return Likes
+     */
+    public function handleRatingInstance(Likes $model)
+    {
+        if (null != $model) {
+            if (isset($_POST['up']) && $model->up != 1) {
+                $model->up = 1;
+                $model->down = 0;
+            } else if (isset($_POST['down']) && $model->down != 1) {
+                $model->up = 0;
+                $model->down = 1;
+            } else {
+                $model->up = 0;
+                $model->down = 0;
+            }
+        } else {
+            $model = new Likes();
+            if (isset($_POST['up'])) {
+                $model->up = 1;
+                $model->down = 0;
+            } else {
+                $model->up = 0;
+                $model->down = 1;
+            }
+        }
+        $model->user_id = $_POST['voter'];
+
+        return $model;
+    }
 }
