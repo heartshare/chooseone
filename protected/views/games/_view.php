@@ -18,6 +18,7 @@
                 } else {
                     echo $data->description;
                 } ?>
+                <br />
                 <?php echo CHtml::link('Читати далі', array('view', 'id' => $data->id)); ?>
                 </p>
 
@@ -35,7 +36,6 @@
                     </li>
                     <li>|</li>-->
                     <li>
-                        <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
                         <span><i class="fa fa-facebook-square"></i></span>
                         <span><i class="fa fa-twitter-square"></i></span>
                         <span><i class="fa fa-google-plus-square"></i></span>
