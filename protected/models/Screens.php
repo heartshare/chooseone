@@ -56,23 +56,6 @@ class Screens extends CActiveRecord
     }
 
     /**
-     * Пошук відповідного екземпляру(ів) за параметрами
-     *
-     * @return CActiveDataProvider
-     */
-    public function search()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->compare('id', $this->id);
-        $criteria->compare('image', $this->image, true);
-        $criteria->compare('game_id', $this->game_id);
-
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
-    }
-
-    /**
      * Повертає екземпляр моделі
      *
      * @param string $className active record class name.

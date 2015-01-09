@@ -44,42 +44,15 @@ class Relator extends CActiveRecord
     }
 
     /**
-     * Оголошення звязків з іншими моделями
-     *
-     * @return array relational rules.
-     */
-    public function relations()
-    {
-        return array();
-    }
-
-    /**
      * @return array лейбли для атрибутів
      */
     public function attributeLabels()
     {
         return array(
-            'id' => 'ID',
+            'id'      => 'ID',
             'user_id' => 'User',
             'feed_id' => 'Feed',
         );
-    }
-
-    /**
-     * Пошук відповідного екземпляру(ів) за параметрами
-     *
-     * @return CActiveDataProvider
-     */
-    public function search()
-    {
-        $criteria = new CDbCriteria;
-        $criteria->compare('id', $this->id);
-        $criteria->compare('user_id', $this->user_id);
-        $criteria->compare('feed_id', $this->feed_id);
-
-        return new CActiveDataProvider($this, array(
-            'criteria' => $criteria,
-        ));
     }
 
     /**

@@ -43,7 +43,8 @@ class Films extends CActiveRecord
     public function relations()
     {
         return array(
-            'comments' => array(self::HAS_MANY, 'Comments', 'film_id'),
+            'comments' => array(self::HAS_MANY,   'Comments', 'film_id'),
+            'likes'    => array(self::BELONGS_TO, 'Likes',    'film_id'),
         );
     }
 

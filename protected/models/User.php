@@ -55,9 +55,10 @@ class User extends CActiveRecord
     public function relations()
     {
         return array(
-            'profile'  => array(self::HAS_ONE, 'Profile', 'user_id'),
-            'comments' => array(self::HAS_MANY, 'Comments', 'author_id'),
-            'feed'     => array(self::MANY_MANY, 'Feed', 'tbl_relator(user_id, feed_id)'),
+            'profile'  => array(self::HAS_ONE,    'Profile',  'user_id'),
+            'comments' => array(self::HAS_MANY,   'Comments', 'author_id'),
+            'feed'     => array(self::MANY_MANY,  'Feed',     'tbl_relator(user_id, feed_id)'),
+            'likes'    => array(self::BELONGS_TO, 'Likes',    'user_id'),
         );
     }
 

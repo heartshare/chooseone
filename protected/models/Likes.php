@@ -44,7 +44,7 @@ class Likes extends CActiveRecord
             'film' => array(self::BELONGS_TO, 'Films', 'film_id'),
             'book' => array(self::BELONGS_TO, 'Books', 'book_id'),
             'game' => array(self::BELONGS_TO, 'Games', 'game_id'),
-            'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+            'user' => array(self::BELONGS_TO, 'User', 'user_id'),
         );
     }
 

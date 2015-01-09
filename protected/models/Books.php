@@ -45,7 +45,8 @@ class Books extends CActiveRecord
     public function relations()
     {
         return array(
-            'comments' => array(self::HAS_MANY, 'Comments', 'book_id')
+            'comments' => array(self::HAS_MANY,   'Comments', 'book_id'),
+            'likes'    => array(self::BELONGS_TO, 'Likes',    'book_id'),
         );
     }
 

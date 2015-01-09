@@ -44,8 +44,9 @@ class Games extends CActiveRecord
     public function relations()
     {
         return array(
-            'screens'  => array(self::HAS_MANY, 'Screens', 'game_id'),
-            'comments' => array(self::HAS_MANY, 'Comments', 'game_id')
+            'screens'  => array(self::HAS_MANY,  'Screens',  'game_id'),
+            'comments' => array(self::HAS_MANY,  'Comments', 'game_id'),
+            'likes'    => array(self::BELONGS_TO,'Likes',    'game_id'),
         );
     }
 
