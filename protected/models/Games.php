@@ -5,9 +5,11 @@
  *
  * Атрибути нижче доступні для таблиці '{{games}}':
  * @property integer $id
- * @property string $name
- * @property string $description
- * @property string $image
+ * @property string  $name
+ * @property string  $description
+ * @property string  $image
+ * @property integer $created
+ * @property integer $updated
  */
 class Games extends CActiveRecord
 {
@@ -48,6 +50,23 @@ class Games extends CActiveRecord
     }
 
     /**
+     * Поведінки моделі
+     *
+     * @return array
+     */
+    public function behaviors()
+    {
+        return array(
+            'timestamps' => array( // автоматичне заповнення полів дат створення та редагування
+                'class'             => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute'   => 'created',
+                'updateAttribute'   => 'updated',
+                'setUpdateOnCreate' => true,
+            ),
+        );
+    }
+
+    /**
      * @return array лейбли для атрибутів
      */
     public function attributeLabels()
@@ -57,15 +76,16 @@ class Games extends CActiveRecord
             'name'        => 'Назва',
             'description' => 'Опис',
             'image'       => 'Постер',
-            'genre'       => 'Жанр'
+            'genre'       => 'Жанр',
+            'created'     => 'Створено',
+            'updated'     => 'Редаговано',
         );
     }
 
     /**
      * Пошук відповідного екземпляру(ів) за параметрами
      *
-     * @return CActiveDataProvider the data provider that can return the models
-     * based on the search/filter conditions.
+     * @return CActiveDataProvider
      */
     public function search()
     {

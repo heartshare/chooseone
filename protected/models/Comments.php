@@ -10,6 +10,8 @@
  * @property integer $film_id
  * @property integer $book_id
  * @property integer $game_id
+ * @property integer $created
+ * @property integer $updated
  */
 class Comments extends CActiveRecord
 {
@@ -48,6 +50,23 @@ class Comments extends CActiveRecord
     }
 
     /**
+     * Поведінки моделі
+     *
+     * @return array
+     */
+    public function behaviors()
+    {
+        return array(
+            'timestamps' => array( // автоматичне заповнення полів дат створення та редагування
+                'class'             => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute'   => 'created',
+                'updateAttribute'   => 'updated',
+                'setUpdateOnCreate' => true,
+            ),
+        );
+    }
+
+    /**
      * @return array лейбли для атрибутів
      */
     public function attributeLabels()
@@ -59,6 +78,8 @@ class Comments extends CActiveRecord
             'film_id'   => 'Фільм',
             'book_id'   => 'Книга',
             'game_id'   => 'Гра',
+            'created'   => 'Створено',
+            'updated'   => 'Редаговано',
         );
     }
 
@@ -101,7 +122,6 @@ class Comments extends CActiveRecord
      */
     public function beforeSave()
     {
-        $this->date = time();
         $this->author_id = Yii::app()->user->id;
 
         return parent::beforeSave();

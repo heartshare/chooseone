@@ -10,6 +10,8 @@
  * @property string $birth
  * @property integer $user_id
  * @property integer $ban
+ * @property integer $registered
+ * @property integer $edited
  */
 class Profile extends CActiveRecord
 {
@@ -48,6 +50,23 @@ class Profile extends CActiveRecord
     }
 
     /**
+     * Поведінки моделі
+     *
+     * @return array
+     */
+    public function behaviors()
+    {
+        return array(
+            'timestamps' => array( // автоматичне заповнення полів дат створення та редагування
+                'class'             => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute'   => 'registered',
+                'updateAttribute'   => 'edited',
+                'setUpdateOnCreate' => true,
+            ),
+        );
+    }
+
+    /**
      * @return array лейбли для атрибутів
      */
     public function attributeLabels()
@@ -59,6 +78,7 @@ class Profile extends CActiveRecord
             'birth'      => 'Дата народження',
             'user_id'    => 'User',
             'registered' => 'Зареєстровано',
+            'edited'     => 'Редаговано',
         );
     }
 

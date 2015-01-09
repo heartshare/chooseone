@@ -9,6 +9,8 @@
  * @property string $description
  * @property string $vfile
  * @property string $image
+ * @property integer $created
+ * @property integer $updated
  */
 class Films extends CActiveRecord
 {
@@ -46,6 +48,23 @@ class Films extends CActiveRecord
     }
 
     /**
+     * Поведінки моделі
+     *
+     * @return array
+     */
+    public function behaviors()
+    {
+        return array(
+            'timestamps' => array( // автоматичне заповнення полів дат створення та редагування
+                'class'             => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute'   => 'created',
+                'updateAttribute'   => 'updated',
+                'setUpdateOnCreate' => true,
+            ),
+        );
+    }
+
+    /**
      * @return array лейбли для атрибутів
      */
     public function attributeLabels()
@@ -57,6 +76,8 @@ class Films extends CActiveRecord
             'vfile'       => 'Відео',
             'image'       => 'Постер',
             'genre'       => 'Жанр',
+            'created'     => 'Створено',
+            'updated'     => 'Редаговано',
         );
     }
 

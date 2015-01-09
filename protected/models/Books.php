@@ -10,6 +10,8 @@
  * @property string $book
  * @property string $image
  * @property string $date
+ * @property integer $created
+ * @property integer $updated
  */
 class Books extends CActiveRecord
 {
@@ -48,6 +50,23 @@ class Books extends CActiveRecord
     }
 
     /**
+     * Поведінки моделі
+     *
+     * @return array
+     */
+    public function behaviors()
+    {
+        return array(
+            'timestamps' => array( // автоматичне заповнення полів дат створення та редагування
+                'class'             => 'zii.behaviors.CTimestampBehavior',
+                'createAttribute'   => 'created',
+                'updateAttribute'   => 'updated',
+                'setUpdateOnCreate' => true,
+            ),
+        );
+    }
+
+    /**
      * @return array лейбли для атрибутів
      */
     public function attributeLabels()
@@ -60,6 +79,8 @@ class Books extends CActiveRecord
             'book'        => 'Книга',
             'genre'       => 'Жанр',
             'image'       => 'Картинка',
+            'created'     => 'Створено',
+            'updated'     => 'Редаговано',
         );
     }
 
@@ -91,18 +112,6 @@ class Books extends CActiveRecord
     public static function model($className = __CLASS__)
     {
         return parent::model($className);
-    }
-
-    /**
-     * Виконуємо дії перед збереженням в базу даних
-     *
-     * @return mixed
-     */
-    public function beforeSave()
-    {
-        $this->date = time();
-
-        return parent::beforeSave();
     }
 
     /**

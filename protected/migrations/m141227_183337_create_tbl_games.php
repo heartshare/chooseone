@@ -10,6 +10,8 @@ class m141227_183337_create_tbl_games extends CDbMigration
             'description' => 'VARCHAR(255) NOT NULL',
             'genre'       => 'VARCHAR(255) NOT NULL',
             'image'       => 'VARCHAR(255) NOT NULL',
+            'created'     => 'INT(10) NOT NULL',
+            'updated'     => 'INT(10) NOT NULL',
         ));
     }
 

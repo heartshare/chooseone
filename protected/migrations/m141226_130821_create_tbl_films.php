@@ -11,6 +11,8 @@ class m141226_130821_create_tbl_films extends CDbMigration
             'genre'       => 'VARCHAR(255) NOT NULL',
             'vfile'       => 'VARCHAR(255) NOT NULL',
             'image'       => 'VARCHAR(255) NOT NULL',
+            'created'     => 'INT(10) NOT NULL',
+            'updated'     => 'INT(10) NOT NULL',
         ));
     }
 
