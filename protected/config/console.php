@@ -24,4 +24,10 @@ return array(
             ),
         ),
     ),
+    'commandMap' => array(
+        'clean' => array(
+            'class'   => 'ext.clean_command.ECleanCommand',
+            'webRoot' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR,
+        ),
+    )
 );
