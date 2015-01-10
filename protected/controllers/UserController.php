@@ -133,7 +133,7 @@ class UserController extends Controller
         $count = Comments::model()->count($criteria);
         $relator = new Relator;
         if ((Relator::model()->findByAttributes(array('user_id' => $id, 'feed_id' => 1)) == null)
-            && ($count == 1 || $count < 5)) {
+            && ($count == 1 || ($count < 5 && $count > 1))) {
             $relator->user_id = $id;
             $relator->feed_id = 1;
         } else if ((Relator::model()->findByAttributes(array('user_id' => $id, 'feed_id' => 2)) == null)
@@ -146,7 +146,6 @@ class UserController extends Controller
             $relator->feed_id = 3;
         }
         $relator->save();
-//        var_dump($relator->getErrors());die;
     }
 
     /**
