@@ -1,4 +1,4 @@
-<div>
+<div class="col-md-2">
     <?php
     echo CHtml::ajaxLink($model->getUpVotes(), array('rating'), array(
         'type'     => 'POST',

@@ -1,21 +1,18 @@
 <?php
 /* @var $this GamesController */
 /* @var $model Games */
+?>
 
-if (Yii::app()->user->getRole() == 2) {
-    echo CHtml::link('Редагувати', array('games/update', 'id' => $model->id), array('class' => 'btn btn-success'));
-    echo CHtml::link('Видалити', array('games/delete', 'id' => $model->id), array('class' => 'btn btn-success'));
-}
+<?php $this->renderPartial('/layouts/admin_block', array('model' => $model)); ?>
 
-if (Yii::app()->user->hasFlash('commentSubmitted')) { ?>
-    <div class="alert alert-success">
-        <strong>
-            <?php echo Yii::app()->user->getFlash('commentSubmitted'); ?>
-        </strong>
-    </div>
-<?php } ?>
+<br>
 
-    <div>
+<?php $this->renderPartial('/layouts/comment_flash', array('model' => $model)); ?>
+
+<br>
+
+<div class="row">
+    <div class="col-md-12">
         <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/games/<?php echo $model->image; ?>" width="100"
              height="100">
 
@@ -34,10 +31,16 @@ if (Yii::app()->user->hasFlash('commentSubmitted')) { ?>
             </a>
         <?php } ?>
     </div>
+</div>
 
+<br>
+
+<div class="row">
     <?php $this->renderPartial('/layouts/rating_block', array('model' => $model)); ?>
+</div>
 
-    <br/>
+<br/>
+
 <?php
 if (!Yii::app()->user->isGuest) {
     $this->renderPartial('/comments/_form', array(

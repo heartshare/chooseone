@@ -20,7 +20,6 @@
     <!--  Javascript  -->
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery-ui/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/jquery/jquery.gdocsviewer.min.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/lightbox/js/lightbox.min.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/js/confirm.js"></script>
@@ -41,7 +40,7 @@
             <!-- Main menu navbar -->
             <nav class="navbar navbar-inverse">
                 <div class="navbar-header">
-                    <?php echo CHtml::link('ChooseOne', $this->createUrl('index'), array('class' => 'navbar-brand')); ?>
+                    <?php echo CHtml::link('ChooseOne', $this->createUrl('site/index'), array('class' => 'navbar-brand')); ?>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">

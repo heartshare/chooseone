@@ -1,42 +1,49 @@
 <?php
 /* @var $this FilmsController */
 /* @var $model Films */
+?>
 
-if (Yii::app()->user->getRole() == 2) {
-    echo CHtml::link('Редагувати', array('films/update', 'id' => $model->id), array('id' => 'edit', 'class' => 'btn btn-success'));
-    echo CHtml::link('Видалити', array('films/delete', 'id' => $model->id), array('id' => 'delbutton', 'class' => 'btn btn-success'));
-}
+<?php $this->renderPartial('/layouts/admin_block', array('model' => $model)); ?>
 
-if (Yii::app()->user->hasFlash('commentSubmitted')) { ?>
-    <div class="alert alert-success">
-        <strong>
-            <?php echo Yii::app()->user->getFlash('commentSubmitted'); ?>
-        </strong>
+<br>
+
+<?php $this->renderPartial('/layouts/comment_flash', array('model' => $model)); ?>
+
+<br>
+
+<div class="row">
+    <div class="col-md-12">
+        <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/films/<?php echo $model->image; ?>" width="200"
+             height="300">
+        <h1><?php echo $model->name; ?></h1>
+        <p><?php echo $model->description; ?></p>
     </div>
-<?php } ?>
-
-<div>
-    <img src="<?php echo Yii::app()->request->baseUrl; ?>/images/films/<?php echo $model->image; ?>" width="200"
-         height="300">
-    <h1><?php echo $model->name; ?></h1>
-    <p><?php echo $model->description; ?></p>
 </div>
 
-<div>
-    <?php
-    $this->widget('application.extensions.eflow.EFlowPlayer', array(
-        'flv' => Yii::app()->request->baseUrl . "/uploads/videos/" . $model->vfile,
-        'htmlOptions' => array(
-            'id' => 'testingplayer',
-            'style' => 'width: 620px; height: 360px;',
-        ),
-    ));
-    ?>
+<br>
+
+<div class="row">
+    <?php $this->renderPartial('/layouts/rating_block', array('model' => $model)); ?>
 </div>
 
-<?php $this->renderPartial('/layouts/rating_block', array('model' => $model)); ?>
+<br>
 
-    <br/>
+<div class="row">
+    <div class="col-md-12">
+        <?php
+            $this->widget('application.extensions.eflow.EFlowPlayer', array(
+                'flv' => Yii::app()->request->baseUrl . "/uploads/videos/" . $model->vfile,
+                'htmlOptions' => array(
+                    'id' => 'testingplayer',
+                    'style' => 'width: 620px; height: 360px;',
+                ),
+            ));
+        ?>
+    </div>
+</div>
+
+<br/>
+
 <?php
 if (!Yii::app()->user->isGuest) {
     $this->renderPartial('/comments/_form', array(
