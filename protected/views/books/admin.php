@@ -8,13 +8,14 @@ echo CHtml::link('Додати книгу', array('books/create'), array('class'
 
 <?php
 $this->widget('zii.widgets.grid.CGridView', array(
-    'id' => 'books-grid',
+    'id'           => 'books-grid',
     'dataProvider' => $model->search(),
-    'filter' => $model,
-    'columns' => array(
+    'filter'       => $model,
+    'columns'      => array(
         'name',
         'description',
         'book',
+        'genre',
         array(
             'class' => 'CButtonColumn',
         ),

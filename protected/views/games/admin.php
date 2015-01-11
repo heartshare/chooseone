@@ -11,10 +11,10 @@ echo CHtml::link('Додати гру', array('games/create'), array('class' => 
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(
-        'id',
         'name',
         'description',
         'image',
+        'genre',
         array(
             'class' => 'CButtonColumn',
         ),

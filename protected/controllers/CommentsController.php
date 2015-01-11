@@ -34,7 +34,7 @@ class CommentsController extends Controller
             ),
             array('allow', // правила для адміністратора
                 'actions' => array('admin', 'delete', 'create', 'update', 'delete'),
-                'users'   => array('test'),
+                'users'   => array('@'),
                 'roles'   => array(2)
             ),
             array('deny',

@@ -11,12 +11,11 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $model->search(),
     'filter'       => $model,
     'columns'      => array(
-        'id',
-        'author',
         'content',
         'film_id',
         'book_id',
         'game_id',
+        'author_id',
         array(
             'class' => 'CButtonColumn',
         ),

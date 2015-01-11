@@ -16,6 +16,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
         'description',
         'vfile',
         'image',
+        'genre',
         array(
             'class' => 'CButtonColumn',
         ),
