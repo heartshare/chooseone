@@ -40,7 +40,7 @@
             <!-- Main menu navbar -->
             <nav class="navbar navbar-inverse">
                 <div class="navbar-header">
-                    <?php echo CHtml::link('ChooseOne', $this->createUrl('site/index'), array('class' => 'navbar-brand')); ?>
+                    <?php echo CHtml::link('ChooseOne', $this->createUrl('index'), array('class' => 'navbar-brand')); ?>
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">

@@ -32,7 +32,7 @@ $this->pageTitle = Yii::app()->name . ' - Error';
 
                 <div class="error-actions">
 
-                    <a href="<?php echo $this->createUrl('site/index'); ?>" class="btn btn-primary btn-lg">
+                    <a href="<?php echo $this->createUrl('index'); ?>" class="btn btn-primary btn-lg">
                         <span class="glyphicon glyphicon-home"></span>Take Me Home
                     </a>
 

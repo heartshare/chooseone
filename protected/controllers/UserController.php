@@ -64,7 +64,7 @@ class UserController extends Controller
                     if ($login->validate() && $login->login()) {
                         Yii::app()->user->setFlash('registered', 'Дякуємо за реєстрацію на нашому сайті!');
 
-                        return $this->redirect($this->createUrl('site/index'));
+                        return $this->redirect($this->createUrl('index'));
                     } else {
                         return $login->getErrors();
                     }
