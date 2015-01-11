@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Контролер повязаний з діями для ігор зареєстрованих у додатку
+ */
 class GamesController extends Controller
 {
 

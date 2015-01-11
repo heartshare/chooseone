@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Контролер повязаний із діями для коментарів додатку
+ */
 class CommentsController extends Controller
 {
 

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Контролер відповідальний за дії повязані із фільмами відображеними в додатку
+ */
 class FilmsController extends Controller
 {
 

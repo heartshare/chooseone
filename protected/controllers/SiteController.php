@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Головний контролер додатку
+ */
 class SiteController extends Controller
 {
 
