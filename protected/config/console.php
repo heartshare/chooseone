@@ -29,5 +29,9 @@ return array(
             'class'   => 'ext.clean_command.ECleanCommand',
             'webRoot' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR,
         ),
+        'fixtures' => array(
+            'class'   => 'ext.fixture_manager.EFixtureManager',
+            'pathToFixtures' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR .'protected/extensions/fixture_manager/fixtures.php',
+        ),
     )
 );

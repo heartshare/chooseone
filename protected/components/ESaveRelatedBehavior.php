@@ -2,7 +2,6 @@
 
 /**
  * ESaveRelatedBehavior
- * Клас що дозволяє керувати поведінкою моделей під час зберігання декількох звязаних
  * @author Stephan Lüderitz
  * @link http://www.yiiframework.com/extension/esaverelatedbehavior/
  * @link http://www.luderitz.de
