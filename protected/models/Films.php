@@ -9,6 +9,7 @@
  * @property string $description
  * @property string $vfile
  * @property string $image
+ * @property string $genre
  * @property integer $created
  * @property integer $updated
  */

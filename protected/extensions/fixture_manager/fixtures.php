@@ -3,14 +3,16 @@
 return array(
     'User' => array(
         'user1' => array(
-            'login'    => 'test2',
+            'login'    => 'admin',
             'password' => md5(1111),
             'email'    => 'test@maol.com',
+            'role'     => 2,
         ),
         'user2' => array(
             'login'    => 'test1',
             'password' => md5(1111),
             'email'    => 'tes2t@maol.com',
+            'role'     => 1,
         ),
     ),
     'Games' => array(
@@ -23,6 +25,42 @@ return array(
             'name'        => 'На34324324зва',
             'description' => 'Оп324324234ис',
             'genre'       => 'Жа11188нр',
+        ),
+    ),
+    'Books' => array(
+        'book1' => array(
+            'name'        => 'fdsfsdfdsf',
+            'description' => 'dfsdfdsfdsfsdfsdfsdf',
+            'book'        => 'book.pdf',
+            'image'       => 'logo.png',
+            'date'        => '1878',
+            'genre'       => 'Жа11188нр',
+            'author'       => 'Franko',
+        ),
+        'book2' => array(
+            'name'        => 'fdsfsdf2321dsf',
+            'description' => 'dfsdf111dsfdsfsdfsdfsdf',
+            'book'        => 'bo2ok.pdf',
+            'image'       => 'lo3go.png',
+            'date'        => '1888',
+            'genre'       => 'Жа11188нр',
+            'author'       => 'Defo',
+        ),
+    ),
+    'Films' => array(
+        'film1' => array(
+            'name'        => 'ggdsffdsfgg',
+            'description' => 'Оggfdsfggпис',
+            'genre'       => 'Жанрfdfds2232',
+            'vfile'       => 'Жанрfds2232',
+            'image'       => 'Жанffsdfр2232',
+        ),
+        'film2' => array(
+            'name'        => 'ggg32423g',
+            'description' => 'Оgggfgпис',
+            'genre'       => 'Жанsdfdsfdsfр2232',
+            'vfile'       => 'Жанdsfdsр2232',
+            'image'       => 'Жанрffdsf2232',
         ),
     ),
 );

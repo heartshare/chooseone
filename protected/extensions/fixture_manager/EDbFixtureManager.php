@@ -3,7 +3,7 @@
  * EFixtureManager
  * @author Viktor Novikov
  * @link https://github.com/NovikovViktor
- * @version 0.1
+ * @version 1.0
  */
 
 /**
@@ -35,7 +35,7 @@ class EDbFixtureManager extends CConsoleCommand
     public $modelsFolder;
 
     /**
-     * Action
+     * Load fixtures into database from fixtures file
      */
     public function actionLoad()
     {
@@ -50,6 +50,7 @@ class EDbFixtureManager extends CConsoleCommand
             $fixtures = require_once $file; // require that file with fixtures, will be array
             $errorList = null; // create array what will consist model errors
             foreach ($fixtures as $modelClass => $instances) { // run through the array with fixtures
+                $modelClass::model()->deleteAll(); // removing old rows from database
                 foreach ($instances as $key => $instance) { // go through all instances for certain model, and save it into db
                     $model = new $modelClass();
                     $model->attributes = $instances[$key];
@@ -59,13 +60,13 @@ class EDbFixtureManager extends CConsoleCommand
                 }
             }
             if (null != $errorList) { // if error list not empty
-                echo "\033[33m Validation errors occurs during loading the fixtures,
- maybe some fixtures wasn't loaded to database \033[0m  \n";
-                echo "\033[34m  The next errors occur \033[0m \n";
+                echo "\033[31m Validation errors occurs during loading the fixtures,
+ some fixtures wasn't loaded to database \033[0m  \n";
+                echo "\033[33m  The next errors occur \033[0m \n";
                 foreach ($errorList as $key => $errors) { // run over all errors and display error what occur during saving into db
                     foreach ($errors as $k => $error) {
                         foreach ($error as $i => $value) {
-                            echo "\033[31m" . $value . "\033[0m   \n"; //error
+                            echo "\033[37;41m" . $value . "\033[0m   \n"; //display error
                         }
                     }
                 }
@@ -73,5 +74,18 @@ class EDbFixtureManager extends CConsoleCommand
                 echo "\033[37;42m All fixtures loaded properly \033[0m   \n"; // if all works fine show success message about uploaded fixtures
             }
         }
+    }
+
+    /**
+     * Show a some info about `fixtures` command
+     *
+     * @return string
+     */
+    public function getHelp()
+    {
+        $output = "\033[34m This command will allow you to manage your fixtures in a simple way.
+ Be careful all rows from database will be removed! \033[0m \n\n";
+
+        return $output.parent::getHelp();
     }
 }

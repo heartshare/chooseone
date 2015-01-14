@@ -8,6 +8,7 @@
  * @property string $login
  * @property string $password
  * @property string $email
+ * @property integer $role
  */
 class User extends CActiveRecord
 {
@@ -28,10 +29,10 @@ class User extends CActiveRecord
     public function rules()
     {
         return array(
-            array('login, password, email', 'required'),
+            array('login, password, email, role', 'required'),
             array('email', 'email'),
             array('login, password, email', 'length', 'max' => 255),
-            array('id, login, password, email', 'safe', 'on' => 'search'),
+            array('id, login, password, email, role', 'safe', 'on' => 'search'),
         );
     }
 
@@ -72,6 +73,7 @@ class User extends CActiveRecord
             'login'    => 'Логін',
             'password' => 'Пароль',
             'email'    => 'Пошта',
+            'role'     => 'Роль',
         );
     }
 
@@ -111,7 +113,7 @@ class User extends CActiveRecord
      */
     public function beforeSave()
     {
-        if ($this->isNewRecord) {
+        if ($this->isNewRecord && (count(Books::model()->findAll()) == 0)) {
             $this->role = 1;
             $this->password = md5($this->password);
         }

@@ -10,6 +10,8 @@
  * @property string $book
  * @property string $image
  * @property string $date
+ * @property string $genre
+ * @property string $author
  * @property integer $created
  * @property integer $updated
  */
