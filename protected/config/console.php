@@ -32,7 +32,7 @@ return array(
         ),
         'fixtures' => array(
             'class'   => 'ext.fixture_manager.EDbFixtureManager',
-//            'pathToFixtures' => '/var/www/chooseone/protected/extensions/fixture_manager/fixtures.php',
+            'pathToFixtures' => '/var/www/chooseone/protected/extensions/fixture_manager/fixtures.php',
             'modelsFolder' => 'application.models.*',
         ),
     )
