@@ -15,7 +15,7 @@ class m150108_033957_add_fk_keys extends CDbMigration
         $this->addForeignKey('FK_games_screens',   'tbl_screens',  'game_id',   'tbl_games', 'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey('FK_feed_user_1',     'tbl_relator',  'user_id',   'tbl_user',  'id', 'CASCADE', 'CASCADE');
         $this->addForeignKey('FK_feed_user_2',     'tbl_relator',  'feed_id',   'tbl_feed',  'id', 'CASCADE', 'CASCADE');
-//        $this->addForeignKey('FK_films_likes',     'tbl_likes',    'film_id', '  tbl_films', 'id', 'CASCADE', 'CASCADE');
+        $this->addForeignKey('FK_films_likes',     'tbl_likes',    'film_id',   'tbl_films', 'id', 'CASCADE', 'CASCADE');
     }
 
     public function down()
