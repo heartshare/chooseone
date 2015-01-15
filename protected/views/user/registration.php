@@ -24,13 +24,12 @@ Yii::app()->clientScript->registerScript(
                     ),
                 )); ?>
 
+                <?php echo $form->errorSummary($model); ?>
+
                 <div class="control-group">
                     <div class="form-group">
                         <?php echo $form->labelEx($model, 'login'); ?>
-                        <div class="controls">
-                            <?php echo $form->textField($model, 'login', array('id' => 'login', 'class' => 'form-control')); ?>
-                        </div>
-                        <?php echo $form->error($model, 'login'); ?>
+                        <?php echo $form->textField($model, 'login', array('id' => 'login', 'class' => 'form-control')); ?>
                     </div>
                 </div>
 
@@ -40,7 +39,6 @@ Yii::app()->clientScript->registerScript(
                         <div class="controls">
                             <?php echo $form->passwordField($model, 'password', array('id' => 'password', 'class' => 'form-control')); ?>
                         </div>
-                        <?php echo $form->error($model, 'password'); ?>
                     </div>
                 </div>
 
@@ -50,7 +48,6 @@ Yii::app()->clientScript->registerScript(
                         <div class="controls">
                             <?php echo $form->textField($model, 'email', array('id' => 'email', 'class' => 'form-control')); ?>
                         </div>
-                        <?php echo $form->error($model, 'email'); ?>
                     </div>
                 </div>
 

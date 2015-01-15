@@ -13,23 +13,23 @@
                 'validateOnSubmit' => true,
             ),
         )); ?>
+
+        <?php echo $form->errorSummary($model); ?>
+
         <div class="row">
             <?php echo $form->labelEx($model, 'username'); ?>
             <?php echo $form->textField($model, 'username', array('class' => 'form-control', 'id' => 'username', "data-required" => "true")); ?>
-            <?php echo $form->error($model, 'username'); ?>
         </div>
 
         <div class="row">
             <?php echo $form->labelEx($model, 'password'); ?>
             <?php echo $form->passwordField($model, 'password', array('class' => 'form-control', 'id' => 'password')); ?>
-            <?php echo $form->error($model, 'password'); ?>
         </div>
 
         <div class="input-group">
             <div class="checkbox">
                 <?php echo $form->checkBox($model, 'rememberMe'); ?>
                 <?php echo $form->label($model, 'rememberMe'); ?>
-                <?php echo $form->error($model, 'rememberMe'); ?>
             </div>
         </div>
 
