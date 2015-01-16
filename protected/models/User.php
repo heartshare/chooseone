@@ -32,7 +32,7 @@ class User extends CActiveRecord
             array('login, password, email', 'required'),
             array('email', 'email'),
             array('login, password, email', 'length', 'max' => 255),
-            array('id, login, password, email, role', 'safe', 'on' => 'search'),
+            array('id, login, password, email, role', 'safe'),
         );
     }
 

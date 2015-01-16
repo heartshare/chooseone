@@ -1,13 +1,13 @@
 <?php
 /**
  * EFixtureManager
- * @author Viktor Novikov
+ * @author Viktor Novikov <viktor.novikov95@gmail.com>
  * @link https://github.com/NovikovViktor
  * @version 1.0
  */
 
 /**
- * EFixtureManager represent the console command what may help you to manage your fixtures.
+ * EDbFixtureManager represent the console command what may help you to manage your fixtures.
  * Available command properties:
  *    pathToFixtures - path to your fixtures file, default try to find in directory of console command
  *    modelsFolder - path to folder where your models classes lay, default `application.models.*1`
@@ -40,7 +40,7 @@ class EDbFixtureManager extends CConsoleCommand
     public function actionLoad()
     {
         echo "\033[36m Are you sure you want to load fixtures? Your database will be purged! [Y/N] \033[0m";
-        $handle = fopen ("php://stdin","r");
+        $handle = fopen("php://stdin", "r");
         $line = fgets($handle);
         $purgedLine = preg_replace('/[^A-Za-z0-9\-]/', '', $line); // or trim($line)
         if ($purgedLine == 'N' || $purgedLine == 'n') {
@@ -50,7 +50,17 @@ class EDbFixtureManager extends CConsoleCommand
         // assign file variable what consist full path to fixtures file
         $file = empty($this->pathToFixtures) ? __DIR__ . '/fixtures.php' : $this->pathToFixtures;
         // import models classes to make available create new instances
-        empty($this->modelsFolder) ? Yii::import('application.models.*') : Yii::import($this->modelsFolder);
+        if (empty($this->modelsFolder)) { // if property empty default load form the models folder in protected directory
+            Yii::import('application.models.*');
+        } else {
+            if (is_array($this->modelsFolder)) { // if modelsFolder defined check if it array of models
+                foreach ($this->modelsFolder as $key => $folder) {
+                    Yii::import($folder); //import each folder form array
+                }
+            } else {
+                Yii::import($this->modelsFolder); //import single models folder
+            }
+        }
         if (!file_exists($file)) { // check if exist file with fixtures
             echo "\033[33m There is no file with fixtures to load! Make sure that you create file with fixtures,
  or pass correct file name \033[0m \n";
@@ -94,6 +104,6 @@ class EDbFixtureManager extends CConsoleCommand
         $output = "\033[34m This command will allow you to manage your fixtures in a simple way.
  Be careful all rows from database will be removed! \033[0m \n\n";
 
-        return $output.parent::getHelp();
+        return $output . parent::getHelp();
     }
 }
