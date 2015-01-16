@@ -74,8 +74,7 @@ class SiteController extends Controller
 
                 mail(Yii::app()->params['adminEmail'], $subject, $model->body, $headers);
                 Yii::app()->user->setFlash('contact', 'Дякуємо що звязались з нами. Відповімо як тільки буде можливість.');
-
-                return $this->refresh();
+                $this->refresh();
             }
         }
 

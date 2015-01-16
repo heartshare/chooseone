@@ -58,14 +58,12 @@ class BooksController extends Controller
             ),));
         if (Yii::app()->request->isAjaxRequest && (isset($_POST['name']) || isset($_POST['genre']))) {
             if (isset($_POST['name'])) {
-                $criteria = array(
-                    'condition' => 'name = :name',
-                    'params'    => array(':name' => $_POST['name']),
-                    'order'     => 'id DESC'
-                );
+                $criteria = new CDbCriteria();
+                $criteria->compare('name', $_POST['name'], true);
+                $criteria->order = 'id DESC';
             } else {
                 $criteria = array(
-                    'condition' => 'genre=:genre',
+                    'condition' => 'genre = :genre',
                     'params'    => array(':genre' => $_POST['genre']),
                     'order'     => 'id DESC'
                 );
