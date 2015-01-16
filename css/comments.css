@@ -1,0 +1,83 @@
+#comment_body_content {
+    border: 1px solid;
+}
+
+.list-group {
+    list-style: none;
+}
+
+.widget .panel-body {
+    padding: 0;
+}
+
+.widget .list-group {
+    margin-bottom: 0;
+}
+
+.widget .panel-title {
+    display: inline
+}
+
+.widget .label-info {
+    float: right;
+}
+
+.widget li.list-group-item {
+    border-radius: 0;
+    border: 0;
+    border-top: 1px solid #ddd;
+}
+
+.widget li.list-group-item:hover {
+    background-color: rgba(86, 61, 124, .1);
+}
+
+.widget .mic-info {
+    color: #666666;
+    font-size: 11px;
+}
+
+.widget .action {
+    margin-top: 5px;
+}
+
+.widget .comment-text {
+    font-size: 12px;
+}
+
+.widget .btn-block {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+#profile_comments_avatar {
+    margin-right: 20px;
+}
+
+#commnet_noimage {
+    margin-left: 20px;
+}
+
+.main_page_head {
+    margin: 0 auto;
+}
+
+.list-group-submenu .list-group-submenu-item {
+    float: right;
+    white-space: nowrap;
+    display: block;
+    padding: 10px 15px;
+    margin-bottom: -1px;
+    background-color: rgb(51, 51, 51);
+    color: rgb(235, 235, 235);
+}
+
+.list-group-submenu .list-group-submenu-item.success {
+    color: rgb(255, 255, 255);
+    background-color: rgb(92, 184, 92);
+}
+
+.list-group-submenu .list-group-submenu-item.danger {
+    color: rgb(255, 255, 255);
+    background-color: rgb(217, 83, 79);
+}

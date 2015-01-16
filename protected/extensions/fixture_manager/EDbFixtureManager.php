@@ -15,7 +15,7 @@
  * You fixtures file must be like this:
  * <pre>
  * return array(
- *     'NameOfModelClass' => array(
+ *     'NameOfModelClass' => array(8
  *          'instance1' => array(
  *              'field1' => 'value1',
  *              'field2' => 'value2',
@@ -37,7 +37,7 @@ class EDbFixtureManager extends CConsoleCommand
     /**
      * Load fixtures into database from fixtures file
      */
-    public function actionLoad()
+    public function actionLoad($truncateMode = false)
     {
         echo "\033[36m Are you sure you want to load fixtures? Your database will be purged! [Y/N] \033[0m";
         $handle = fopen("php://stdin", "r");
