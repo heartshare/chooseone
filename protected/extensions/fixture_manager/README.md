@@ -41,3 +41,8 @@ NOTE. If you you have a module architecture and your models lays in multiple fol
 E.g. ` 'modelsFolder'   => array('application.models.*', 'application.modules.user.models.*') ,`
 
 4) Run in cli: `php path/to/yiic fixtures load` ;
+
+TO DO
+===============
+1) Add truncate mode when upload fixtures
+2) Add relation support
