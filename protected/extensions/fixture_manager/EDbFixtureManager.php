@@ -1,6 +1,6 @@
 <?php
 /**
- * EFixtureManager
+ * EDbFixtureManager
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
  * @link https://github.com/NovikovViktor
  * @version 1.0
@@ -37,13 +37,13 @@ class EDbFixtureManager extends CConsoleCommand
     /**
      * Load fixtures into database from fixtures file
      */
-    public function actionLoad($truncateMode = false)
+    public function actionLoad()
     {
         echo "\033[36m Are you sure you want to load fixtures? Your database will be purged! [Y/N] \033[0m";
         $handle = fopen("php://stdin", "r");
         $line = fgets($handle);
         $purgedLine = preg_replace('/[^A-Za-z0-9\-]/', '', $line); // or trim($line)
-        if ($purgedLine == 'N' || $purgedLine == 'n') {
+        if (strtolower($purgedLine) == 'n') {
             echo "\033[34m Stopping the executing... Done. \033[0m \n";
             exit(0);
         }
@@ -66,18 +66,18 @@ class EDbFixtureManager extends CConsoleCommand
  or pass correct file name \033[0m \n";
         } else { // if exist
             $fixtures = require_once $file; // require that file with fixtures, will be array
-            $errorList = null; // create array what will consist model errors
+            $errorList = array(); // create array what will consist model errors
             foreach ($fixtures as $modelClass => $instances) { // run through the array with fixtures
                 $modelClass::model()->deleteAll(); // removing old rows from database
                 foreach ($instances as $key => $instance) { // go through all instances for certain model, and save it into db
                     $model = new $modelClass();
                     $model->attributes = $instances[$key];
-                    if (!$model->save()) { // if model can't be saved append errors into error list array
+                    if (! $model->save()) { // if model can't be saved append errors into error list array
                         $errorList[] = $model->getErrors();
                     }
                 }
             }
-            if (null != $errorList) { // if error list not empty
+            if (!empty($errorList)) { // if error list not empty
                 echo "\033[31m Validation errors occurs during loading the fixtures,
  some fixtures wasn't loaded to database \033[0m  \n";
                 echo "\033[33m  The next errors occur \033[0m \n";
