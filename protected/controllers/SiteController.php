@@ -13,7 +13,7 @@ class SiteController extends Controller
     {
         return array(
             'captcha' => array( // рендерить картинку з капчею на сторінці контакту
-                'class'     => 'MathCaptchaAction',
+                'class' => 'MathCaptchaAction',
                 'minLength' => 1,
                 'maxLength' => 10,
             ),

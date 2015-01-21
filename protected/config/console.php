@@ -13,7 +13,7 @@ return array(
             'username'         => 'root',
             'password'         => 'root',
             'charset'          => 'utf8',
-            'tablePrefix' => 'tbl_',
+            'tablePrefix'      => 'tbl_',
         ),
         'log' => array(
             'class'  => 'CLogRouter',
@@ -31,9 +31,10 @@ return array(
             'webRoot' => Yii::getPathOfAlias('webroot') . DIRECTORY_SEPARATOR,
         ),
         'fixtures' => array(
-            'class'   => 'ext.fixture_manager.EDbFixtureManager',
+            'class'          => 'ext.fixture_manager.EDbFixtureManager',
             'pathToFixtures' => '/var/www/chooseone/protected/extensions/fixture_manager/fixtures.php',
-            'modelsFolder' => array('application.models.*'),
+            'php_sql_parser' => '/var/www/chooseone/protected/components/phpsqlparser/src/PHPSQLParser.php',
+            'modelsFolder'   => array('application.models.*'),
         ),
     )
 );

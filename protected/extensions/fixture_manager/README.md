@@ -1,6 +1,12 @@
-EDbFixtureManager
+EDbFixtureManager v.1.0.1
 ==================================
 EDbFixtureManager - is simple tool for manage and use fixtures with Yii framework.
+
+  Additions:
+  1) All attributes what you want to assign to certain model instance,
+  must be defined with `safe` validation rule;
+  2) Don't forget configure `tablePrefix` option for `db` connection definition;
+
 
 Basic usage:
 1) Download the extension and place it in `extensions` directory;
@@ -42,7 +48,21 @@ E.g. ` 'modelsFolder'   => array('application.models.*', 'application.modules.us
 
 4) Run in cli: `php path/to/yiic fixtures load` ;
 
-TO DO
+Advanced usage:
+
+If you want to truncate your tables instead of just delete rows from database:
+
+    A) Download PHPSQLParser (you may download it from here, but I RECOMEND to use the attached version of library) ;
+    B) Place the extension folder where ever in you application, but don`t forget to configurate settings in console config,
+       by appending:
+       ``` php
+       'commandMap' => array(
+           'fixtures' => array(
+           ...
+           'php_sql_parser' => '/path/to/PHPSQLParser.php',
+       ```
+    C) Run cli command with option: `php protected/yiic fixtures load --truncateMode=true` ;
+
+TO DO list
 ===============
-1) Add truncate mode when upload fixtures
-2) Add relation support
+1) Add relation support
