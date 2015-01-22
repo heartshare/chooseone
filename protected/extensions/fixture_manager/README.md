@@ -67,3 +67,4 @@ TO DO list
 ===============
 1) Add developer friendly messages about non-existing models or tables
 2) Add relation support
+(OPTIONAL. If I find a better way to truncate DB, I will do this)
