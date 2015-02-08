@@ -5,7 +5,7 @@ return array(
     'name'           => 'ChooseOne',
     'sourceLanguage' => 'en_US',
     'language'       => 'uk',
-    'preload'        => array('log'),
+    'preload'        => array('log', 'debug'),
 
     // автоматично завантажуємо файли класів моделей та компонентів
     'import' => array(
@@ -24,6 +24,10 @@ return array(
 
     // application components
     'components' => array(
+        'debug' => array(
+            'class'   => 'ext.yii2-debug.Yii2Debug',
+            'enabled' => true,
+        ),
         'authManager' => array( // аутентифікація користувача в системі
             'class'        => 'PhpAuthManager',
             'defaultRoles' => array('guest'), // роль по замовчуванню
