@@ -157,4 +157,16 @@ class Films extends CActiveRecord
     {
         return count(Likes::model()->findAllByAttributes(array('film_id' => $this->id, 'down' => 1)));
     }
+
+    /**
+     * @return bool|void
+     */
+    public function beforeSave()
+    {
+        if (null == $this->image) {
+            $this->image = 'no_picture.png';
+        }
+
+        return parent::beforeSave();
+    }
 }
