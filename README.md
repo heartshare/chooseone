@@ -11,14 +11,16 @@ OnTheWay project.
 
 Clone repository to your local machine, using command:
 
-    git clone git@bitbucket.org:allinweb_team/ontheway.git
+``` bash
+    git clone git@github.com:NovikovViktor/chooseone.git (SSH)
+```
 
 2) Get dependencies using composer
 -------------------------------------
 
-    ``` bash
-        php composer.phar install(update)
-    ```
+``` bash
+    php composer.phar install(update)
+```
 
 3) Create database named 'chooseone'(you can assign any name what you like,
 but then do not forget to change name in config file)
@@ -26,28 +28,28 @@ but then do not forget to change name in config file)
 4) Change your permissions, create schema, load fixtures using commands below
 --------------------------------
 
-    ``` bash
-        sudo chmod -R 777 /path/to/project
-        php protected/yiic migrate
-        php protected/yiic fixtures load [--truncateMode=]
-    ```
+``` bash
+    sudo chmod -R 777 /path/to/project
+    php protected/yiic migrate
+    php protected/yiic fixtures load [--truncateMode=]
+```
 
 6) Create some folders if they don't exist.
 
 7) Create virtual host and then restart Apache2 (or nginx, or any server what you use)
 
 Simple config for apache:
-    ```
-        <VirtualHost *:80>
-            DocumentRoot /var/www/chooseone/
-            ServerName chooseone
-            <Directory /var/www/chooseone/>
-                Options FollowSymLinks
-                AllowOverride All
-            </Directory>
-        </VirtualHost>
-    ```
+```
+    <VirtualHost *:80>
+        DocumentRoot /var/www/chooseone/
+        ServerName chooseone
+        <Directory /var/www/chooseone/>
+            Options FollowSymLinks
+            AllowOverride All
+        </Directory>
+    </VirtualHost>
+```
 
 8) Run application in browser
 -------------------------------
-    htto://chooseone/
+    http://chooseone/

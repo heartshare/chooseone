@@ -58,16 +58,18 @@ If you want to truncate your tables instead of just delete rows from database:
   B) Place the extension folder where ever in you application, but don`t forget to configurate settings in console config,
      by appending:
 
-     ``` php
-     'commandMap' => array(
-         'fixtures' => array(
-         ...
-         'php_sql_parser' => '/path/to/PHPSQLParser.php',
-     ```
+``` php
+ 'commandMap' => array(
+     'fixtures' => array(
+     ...
+     'php_sql_parser' => '/path/to/PHPSQLParser.php',
+```
   C) Run cli command with option: `php protected/yiic fixtures load --truncateMode=true` ;
 
 TO DO list
 ===============
 1) Add developer friendly messages about non-existing models or tables
+
 2) Add relation support
+
 (OPTIONAL. If I find a better way to truncate DB, I will do this)
