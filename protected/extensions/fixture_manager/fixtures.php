@@ -46,7 +46,7 @@ return array(
             'image'       => 'no_picture.png',
             'date'        => '1888',
             'genre'       => 'Жа11188нр',
-            'author'       => 'Defo',
+            'author'      => 'Defo',
         ),
     ),
     'Films' => array(

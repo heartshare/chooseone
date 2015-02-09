@@ -32,6 +32,7 @@ class EDbFixtureManager extends CConsoleCommand
      */
     public function actionLoad($truncateMode = false)
     {
+        $startTime = microtime(true); // check time of start execution script
         echo "\033[36m Are you sure you want to load fixtures? Your database will be purged! [Y/N] \033[0m";
         $handle = fopen("php://stdin", "r");
         $line = fgets($handle);
@@ -122,6 +123,8 @@ class EDbFixtureManager extends CConsoleCommand
                 }
             } else {
                 echo "\033[37;42m All fixtures loaded properly \033[0m   \n"; // if all works fine show success message about uploaded fixtures
+                echo "Script execution time: " . round(microtime(true) - $startTime, 2) . " ms.  \n";
+                echo "Memory used: " . round(memory_get_usage(true)/1048576,2) . "mb \n";
             }
         }
     }
