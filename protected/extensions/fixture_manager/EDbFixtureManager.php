@@ -3,7 +3,7 @@
  * EDbFixtureManager
  * @author Viktor Novikov <viktor.novikov95@gmail.com>
  * @link https://github.com/NovikovViktor
- * @version 1.0.1
+ * @version 1.0.2
  */
 
 /**

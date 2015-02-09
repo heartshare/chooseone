@@ -37,7 +37,7 @@ return array(
             'image'       => 'no_picture.png',
             'date'        => '1878',
             'genre'       => 'Жа11188нр',
-            'author'       => 'Franko',
+            'author'      => 'Franko',
         ),
         'book2' => array(
             'name'        => 'fdsfsdf2321dsf',
