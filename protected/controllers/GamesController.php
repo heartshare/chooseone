@@ -60,7 +60,7 @@ class GamesController extends Controller
         $dependecy = new CDbCacheDependency('SELECT MAX(updated) FROM {{games}}');
         $dataProvider = new CActiveDataProvider(Games::model()->cache(60*60, $dependecy, 1), array (
             'criteria' => array(
-                'order' => 'id DESC'
+                'order' => 'created DESC'
             ),
             'pagination' => array (
                 'pageSize' => 5,

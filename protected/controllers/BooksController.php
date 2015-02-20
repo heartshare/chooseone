@@ -58,6 +58,9 @@ class BooksController extends Controller
     {
         $dependecy = new CDbCacheDependency('SELECT MAX(updated) FROM {{books}}');
         $books = new CActiveDataProvider(Books::model()->cache(60*60, $dependecy, 1), array (
+            'criteria' => array(
+                'order' => 'created DESC'
+            ),
             'pagination' => array (
                 'pageSize' => 5,
             )
