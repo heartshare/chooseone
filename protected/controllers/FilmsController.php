@@ -16,6 +16,10 @@ class FilmsController extends Controller
         return array(
             'accessControl',
             'ajaxOnly + rating',
+            array(
+                'CHttpCacheFilter + index',
+                'lastModified' => Yii::app()->db->createCommand("SELECT MAX(`updated`) FROM {{films}}")->queryScalar(),
+            ),
         );
     }
 
