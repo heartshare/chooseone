@@ -5,6 +5,20 @@
  */
 class SiteController extends Controller
 {
+    /**
+     * Фільтри для дій контролера
+     *
+     * @return array action filters
+     */
+    public function filters()
+    {
+        return array(
+            array(
+                'CHttpCacheFilter + index',
+                'lastModified' => Yii::app()->db->createCommand("SELECT MAX(`updated`) FROM {{comments}}")->queryScalar(),
+            ),
+        );
+    }
 
     /**
      * Оголошуємо сторонні actions необхідні для логіки даного контроллеру
@@ -13,7 +27,7 @@ class SiteController extends Controller
     {
         return array(
             'captcha' => array( // рендерить картинку з капчею на сторінці контакту
-                'class' => 'MathCaptchaAction',
+                'class'     => 'MathCaptchaAction',
                 'minLength' => 1,
                 'maxLength' => 10,
             ),
