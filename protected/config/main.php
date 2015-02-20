@@ -24,6 +24,12 @@ return array(
 
     // application components
     'components' => array(
+        'cache'=>array( // компонент кешування даних в Memcached
+            'class'   => 'system.caching.CMemCache',
+            'servers' => array(
+                array('host' => 'localhost', 'port' => 11211, 'weight' => 60),
+            ),
+        ),
         'debug' => array(
             'class'   => 'ext.yii2-debug.Yii2Debug',
             'enabled' => true,

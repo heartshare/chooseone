@@ -52,10 +52,12 @@ class BooksController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Books', array(
-            'pagination' => array(
+        $dependecy = new CDbCacheDependency('SELECT MAX(updated) FROM {{books}}');
+        $books = new CActiveDataProvider(Books::model()->cache(60*60, $dependecy, 1), array (
+            'pagination' => array (
                 'pageSize' => 5,
-            ),));
+            )
+        ));
         if (Yii::app()->request->isAjaxRequest && (isset($_POST['name']) || isset($_POST['genre']))) {
             if (isset($_POST['name'])) {
                 $criteria = new CDbCriteria();
@@ -68,19 +70,19 @@ class BooksController extends Controller
                     'order'     => 'id DESC'
                 );
             }
-            $dataProvider = new CActiveDataProvider('Books', array(
+            $books = new CActiveDataProvider('Books', array(
                 'criteria'   => $criteria,
                 'pagination' => array(
                     'pageSize' => 5,
                 ),));
 
             return $this->renderPartial('content', array(
-                'dataProvider' => $dataProvider
+                'dataProvider' => $books
             ));
         }
 
         return $this->render('index', array(
-            'dataProvider' => $dataProvider
+            'dataProvider' => $books
         ));
     }
 
