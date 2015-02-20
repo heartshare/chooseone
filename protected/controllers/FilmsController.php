@@ -57,10 +57,12 @@ class FilmsController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Films', array(
-            'pagination' => array(
+        $dependecy = new CDbCacheDependency('SELECT MAX(updated) FROM {{films}}');
+        $dataProvider = new CActiveDataProvider(Films::model()->cache(60*60, $dependecy, 1), array (
+            'pagination' => array (
                 'pageSize' => 5,
-            ),));
+            )
+        ));
         if (Yii::app()->request->isAjaxRequest && (isset($_POST['name']) || isset($_POST['genre']))) {
             if (isset($_POST['name'])) {
                 $criteria = new CDbCriteria();

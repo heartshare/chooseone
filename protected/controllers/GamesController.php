@@ -57,13 +57,14 @@ class GamesController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new CActiveDataProvider('Games', array(
+        $dependecy = new CDbCacheDependency('SELECT MAX(updated) FROM {{games}}');
+        $dataProvider = new CActiveDataProvider(Games::model()->cache(60*60, $dependecy, 1), array (
             'criteria' => array(
                 'order' => 'id DESC'
             ),
-            'pagination' => array(
+            'pagination' => array (
                 'pageSize' => 5,
-            ),
+            )
         ));
         if (Yii::app()->request->isAjaxRequest && (isset($_POST['name']) || isset($_POST['genre']))) {
             if (isset($_POST['name'])) {
