@@ -38,7 +38,6 @@
     <div class="container">
 
         <div class="row">
-
             <!-- Main menu navbar -->
             <nav class="navbar navbar-inverse">
                 <div class="navbar-header">
@@ -94,8 +93,9 @@
 
         <hr>
 
-        <footer>
-            <p>&copy; Company 2014</p>
+        <footer class="footer">
+            <p class="pull-right"><small>&copy; Company 2014</small></p>
+            Powered by <a href="http://www.yiiframework.com/" rel="external">Yii Framework</a>
         </footer>
 
     </div>
