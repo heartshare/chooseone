@@ -1,4 +1,4 @@
-Chooseone
+Chooseone [![Project Status](https://stillmaintained.com/NovikovViktor/chooseone.png)]
 ========================
 
 Welcome to Chooseone - a project based on Yii.
