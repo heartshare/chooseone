@@ -1,4 +1,6 @@
 [![Project Status](https://stillmaintained.com/NovikovViktor/chooseone.png)](https://stillmaintained.com/NovikovViktor/chooseone)
+[![Build Status](https://travis-ci.org/NovikovViktor/chooseone.svg?branch=dev)](https://travis-ci.org/NovikovViktor/chooseone)
+
 Chooseone
 ========================
 
