@@ -1,6 +1,12 @@
 <?php
 /* @var $this SiteController */
 $this->pageTitle = Yii::app()->name;
+
+/*$this->widget('ext.yii_tagger.ETagInputWidget',
+    array(
+        'model' => '1',
+        'attribute' => '2',
+    ));*/
 ?>
 
 <div class="container">
@@ -57,9 +63,12 @@ $this->pageTitle = Yii::app()->name;
 
 
     <div id="owl-demo" class="owl-carousel owl-theme">
-        <div class="item"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/slider/t2.jpg" width="1892" height="776"></div>
-        <div class="item"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/slider/t2.jpg" width="1892" height="776"></div>
-        <div class="item"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/slider/t2.jpg" width="1892" height="776"></div>
+        <div class="item"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/slider/t2.jpg" width="1892"
+                               height="776"></div>
+        <div class="item"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/slider/t2.jpg" width="1892"
+                               height="776"></div>
+        <div class="item"><img src="<?php echo Yii::app()->request->baseUrl; ?>/images/slider/t2.jpg" width="1892"
+                               height="776"></div>
     </div>
 
     <div id="last-comments">
