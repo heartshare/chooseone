@@ -2,11 +2,12 @@
 /* @var $this SiteController */
 $this->pageTitle = Yii::app()->name;
 
-/*$this->widget('ext.yii_tagger.ETagInputWidget',
+$this->widget('ext.yii_tagger.ETagInputWidget',
     array(
-        'model' => '1',
-        'attribute' => '2',
-    ));*/
+        'model'     => Genres::model(),
+        'attribute' => 'name',
+        'multiple'  => true,
+    ));
 ?>
 
 <div class="container">

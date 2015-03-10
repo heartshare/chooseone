@@ -13,15 +13,22 @@ class ETagInputWidget extends CInputWidget
 {
     public $model;
     public $attribute;
+    public $multiple = true;
 
     public function run()
     {
         $results = array();
         $models = $this->model->findAll();
         foreach ($models as $key => $model) {
-            $results[] = $this->attribute;
+            $fieldName = $this->attribute;
+            $results[] = $model->$fieldName;
         }
+//        var_dump($results);die;
 
-        $this->render('field', array('model' => $this->model, 'attribute' => $this->attribute));
+        $this->render('field', array(
+            'results'   => $results,
+            'attribute' => $this->attribute,
+            'multiple'  => $this->multiple,
+        ));
     }
 }
