@@ -6,8 +6,8 @@ $this->widget('ext.yii_tagger.ETagInputWidget',
     array(
         'model'     => Genres::model(),
         'attribute' => 'name',
-        'multiple'  => true,
-    ));
+    )
+);
 ?>
 
 <div class="container">

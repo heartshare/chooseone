@@ -13,7 +13,6 @@ class ETagInputWidget extends CInputWidget
 {
     public $model;
     public $attribute;
-    public $multiple = true;
 
     public function run()
     {
@@ -27,8 +26,6 @@ class ETagInputWidget extends CInputWidget
 
         $this->render('field', array(
             'results'   => $results,
-            'attribute' => $this->attribute,
-            'multiple'  => $this->multiple,
         ));
     }
 }

@@ -1,7 +1,28 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 
-<script>
+<?php
+Yii::app()->clientScript->registerCss('test', '
+.seacrh-tag-textbox {
+background-color: #fff;
+border: 1px solid #ccc;
+padding: 2px 4px;
+}
+
+.seacrh-tag-textbox li {
+display: inline-block;
+list-style: none;
+margin-left: 5px;
+}
+
+.seacrh-tag-textbox input {
+background: none;
+border: none;
+}
+');
+?>
+
+<script type="text/javascript">
     $(function () {
         var availableTags = <?php echo json_encode($results); ?>;
 
@@ -48,12 +69,16 @@
 </script>
 
 <div class="ui-widget">
-    <?php
-        echo CHTml::label(Yii::t('ui_tagger', 'Tags'), 'tags');
-        echo CHtml::textField('tag_field', '', array(
-            'id'    => 'tags',
-            'class' => 'form-control',
-            'size'  => 50,
-        ));
-    ?>
+    <?php echo CHTml::label(Yii::t('ui_tagger', 'Tags'), 'tags'); ?>
+    <ul class="seacrh-tag-textbox">
+        <li>
+            <?php
+            echo CHtml::textField('tag_field', '', array(
+                'id' => 'tags',
+                'class' => 'form-control',
+                'size' => 50,
+            ));
+            ?>
+        </li>
+    </ul>
 </div>
