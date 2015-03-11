@@ -4,20 +4,29 @@
 <?php
 Yii::app()->clientScript->registerCss('test', '
 .seacrh-tag-textbox {
-background-color: #fff;
-border: 1px solid #ccc;
-padding: 2px 4px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 2px 4px;
 }
 
 .seacrh-tag-textbox li {
-display: inline-block;
-list-style: none;
-margin-left: 5px;
+    display: inline-block;
+    list-style: none;
+    margin-left: 5px;
 }
 
 .seacrh-tag-textbox input {
-background: none;
-border: none;
+    background: none;
+    border: none;
+}
+
+.tag_item {
+    background-color: #E0E0D1;
+    border: 1px solid #B3B3A7;
+}
+
+.remove-tag {
+    cursor: pointer;
 }
 ');
 ?>
@@ -33,7 +42,6 @@ border: none;
         function extractLast(term) {
             return split(term).pop();
         }
-
         $("#tags")
             // don't navigate away from the field on tab when selecting an item
             .bind("keydown", function (event) {
@@ -49,19 +57,16 @@ border: none;
                     response($.ui.autocomplete.filter(
                         availableTags, extractLast(request.term)));
                 },
-                focus: function () {
-                    // prevent value inserted on focus
-                    return false;
-                },
                 select: function (event, ui) {
-                    var terms = split(this.value);
-                    // remove the current input
-                    terms.pop();
-                    // add the selected item
-                    terms.push(ui.item.value);
-                    // add placeholder to get the comma-and-space at the end
-                    terms.push("");
-                    this.value = terms.join(", ");
+                    this.value = "";
+                    var $seacrh_tag_textbox = $('.seacrh-tag-textbox');
+                    var content = '<li class="tag_item">' + ui.item.value + '<span class="remove-tag glyphicon glyphicon-remove-sign"></span></li>';
+                    if ($seacrh_tag_textbox.find('.tag_item').length == 0) {
+                        $seacrh_tag_textbox.prepend(content);
+                    } else {
+                        $('.tag_item').last().after(content);
+                    }
+
                     return false;
                 }
             });

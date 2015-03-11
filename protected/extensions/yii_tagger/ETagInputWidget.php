@@ -22,7 +22,6 @@ class ETagInputWidget extends CInputWidget
             $fieldName = $this->attribute;
             $results[] = $model->$fieldName;
         }
-//        var_dump($results);die;
 
         $this->render('field', array(
             'results'   => $results,
