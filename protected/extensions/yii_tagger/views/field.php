@@ -48,6 +48,7 @@ Yii::app()->clientScript->registerCss('tag_widget_css', '
         function extractLast(term) {
             return split(term).pop();
         }
+
         $("#tags")
             // don't navigate away from the field on tab when selecting an item
             .bind("keydown", function (event) {
@@ -78,6 +79,12 @@ Yii::app()->clientScript->registerCss('tag_widget_css', '
                     return false;
                 }
             });
+
+        $(document).on('click', '.remove-tag', function() {
+            var tagValue = $(this).parent('.tag_item').html().replace(/<\/?[^>]+(>|$)/g, "");
+            availableTags.push(tagValue);
+            $(this).parent('.tag_item').remove();
+        });
     });
 </script>
 
@@ -88,7 +95,6 @@ Yii::app()->clientScript->registerCss('tag_widget_css', '
             <?php
             echo CHtml::textField('tag_field', '', array(
                 'id' => 'tags',
-//                'class' => 'form-control',
                 'size' => 50,
             ));
             ?>
