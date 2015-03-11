@@ -2,7 +2,11 @@
 <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
 
 <?php
-Yii::app()->clientScript->registerCss('test', '
+Yii::app()->clientScript->registerCss('tag_widget_css', '
+#tags:focus{
+   outline: 0;
+}
+
 .seacrh-tag-textbox {
     background-color: #fff;
     border: 1px solid #ccc;
@@ -21,12 +25,14 @@ Yii::app()->clientScript->registerCss('test', '
 }
 
 .tag_item {
+    padding: 5px;
     background-color: #E0E0D1;
     border: 1px solid #B3B3A7;
 }
 
 .remove-tag {
     cursor: pointer;
+    margin-left: 5px;
 }
 ');
 ?>
@@ -58,9 +64,11 @@ Yii::app()->clientScript->registerCss('test', '
                         availableTags, extractLast(request.term)));
                 },
                 select: function (event, ui) {
+                    var index = availableTags.indexOf(ui.item.value);
+                    availableTags.splice(index, 1);
                     this.value = "";
                     var $seacrh_tag_textbox = $('.seacrh-tag-textbox');
-                    var content = '<li class="tag_item">' + ui.item.value + '<span class="remove-tag glyphicon glyphicon-remove-sign"></span></li>';
+                    var content = '<li class="tag_item">' + ui.item.value + '<span class="remove-tag glyphicon glyphicon-remove-circle"></span></li>';
                     if ($seacrh_tag_textbox.find('.tag_item').length == 0) {
                         $seacrh_tag_textbox.prepend(content);
                     } else {
@@ -80,7 +88,7 @@ Yii::app()->clientScript->registerCss('test', '
             <?php
             echo CHtml::textField('tag_field', '', array(
                 'id' => 'tags',
-                'class' => 'form-control',
+//                'class' => 'form-control',
                 'size' => 50,
             ));
             ?>
