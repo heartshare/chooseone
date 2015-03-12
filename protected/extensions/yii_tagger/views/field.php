@@ -34,6 +34,10 @@ Yii::app()->clientScript->registerCss('tag_widget_css', '
     cursor: pointer;
     margin-left: 5px;
 }
+
+#tags_submit_field {
+    display: none;
+}
 ');
 ?>
 
@@ -50,7 +54,6 @@ Yii::app()->clientScript->registerCss('tag_widget_css', '
         }
 
         $("#tags")
-            // don't navigate away from the field on tab when selecting an item
             .bind("keydown", function (event) {
                 if (event.keyCode === $.ui.keyCode.TAB &&
                     $(this).autocomplete("instance").menu.active) {
@@ -60,7 +63,6 @@ Yii::app()->clientScript->registerCss('tag_widget_css', '
             .autocomplete({
                 minLength: 0,
                 source: function (request, response) {
-                    // delegate back to autocomplete, but extract the last term
                     response($.ui.autocomplete.filter(
                         availableTags, extractLast(request.term)));
                 },
@@ -68,6 +70,9 @@ Yii::app()->clientScript->registerCss('tag_widget_css', '
                     var index = availableTags.indexOf(ui.item.value);
                     availableTags.splice(index, 1);
                     this.value = "";
+                    var $tags_submit = $('#tags_submit_field');
+                    var start = $tags_submit.val();
+                    $tags_submit.val(start + ',' + ui.item.value);
                     var $seacrh_tag_textbox = $('.seacrh-tag-textbox');
                     var content = '<li class="tag_item">' + ui.item.value + '<span class="remove-tag glyphicon glyphicon-remove-circle"></span></li>';
                     if ($seacrh_tag_textbox.find('.tag_item').length == 0) {
@@ -80,10 +85,14 @@ Yii::app()->clientScript->registerCss('tag_widget_css', '
                 }
             });
 
-        $(document).on('click', '.remove-tag', function() {
+        $(document).on('click', '.remove-tag', function () {
             var tagValue = $(this).parent('.tag_item').html().replace(/<\/?[^>]+(>|$)/g, "");
             availableTags.push(tagValue);
             $(this).parent('.tag_item').remove();
+        });
+
+        $(document).on('click', '.seacrh-tag-textbox', function () {
+            $("#tags").focus();
         });
     });
 </script>
@@ -94,7 +103,15 @@ Yii::app()->clientScript->registerCss('tag_widget_css', '
         <li>
             <?php
             echo CHtml::textField('tag_field', '', array(
-                'id' => 'tags',
+                'id'   => 'tags',
+                'size' => 50,
+            ));
+            ?>
+        </li>
+        <li>
+            <?php
+            echo CHtml::textField('tags_submit_field', '', array(
+                'id'   => 'tags_submit_field',
                 'size' => 50,
             ));
             ?>
